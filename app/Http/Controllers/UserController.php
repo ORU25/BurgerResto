@@ -38,7 +38,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'username'=> 'required | string | unique:users',
+            'email'=> 'required | email | unique:users',
+            'hp' => ['required'],
+            'password' => ['required','string','min:5'],
+            'role'=> ['required'],
+        ]);
+
+        try{
+            $user=new User;
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->hp = $request->hp;
+            $user->password = Hash::make($request->password);
+            $user->role = $request->role;
+            $user->save();
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('errors','User gagal disimpan');
+        }
+        return redirect('user')->with('sukses','user berhasil disimpan');
     }
 
     /**
@@ -60,7 +80,7 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        
     }
 
     /**
@@ -72,7 +92,29 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $request->validate([
+            'username' => ['required','string','unique:users,username,'.$id],
+            'email' => ['required','email','unique:users,email,'.$id],
+            'hp' => 'required',
+            'role' => 'required',
+        ]);
+
+        try{
+            $user = User::find($id);
+            $user->username = $request->username;
+            $user->email = $request->email;
+            $user->hp = $request->hp;
+            if($request->password <> ''){
+                $user->password = Hash::make($request->password);
+            }
+            $user->role = $request->role;
+            $user->save();
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('errors','User Gagal Diedit');
+        }
+        return redirect('user')->with('sukses','User Berhasil Diedit');
     }
 
     /**
@@ -83,6 +125,17 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        if (\Auth::user()->id == $id) {
+            return redirect()->back()->with('errors','User Sedang Tidak Dapat Dihapus');
+        }else{
+            try{
+                $user = User::find($id);
+                $user->delete();
+            }
+            catch(\Exception $e){
+                return redirect()->back()->with('errors','User Gagal Dihapus');
+            }
+            return redirect()->back()->with('sukses','User Berhasil Dihapus');
+        }
     }
 }

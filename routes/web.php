@@ -38,4 +38,21 @@ Route::put('user/{id}', [UserController::class, 'update'])->middleware(['role:ad
 Route::get('user/show/{id}',[UserController::class,'show'])->middleware(['role:admin'])->name('user.show');
 Route::delete('user/{id}',[UserController::class, 'destroy'])->middleware(['role:admin'])->name('user.delete');
 
+Route::get('kategori', [KategoriController::class, 'index'])->middleware(['role:admin'])->name('kategori.index');
+Route::get('kategori/create', [KategoriController::class, 'create'])->middleware(['role:admin'])->name('kategori.create');
+Route::post('kategori/store', [KategoriController::class, 'store'])->middleware(['role:admin'])->name('kategori.store');
+Route::get('kategori/edit/{id}', [KategoriController::class, 'edit'])->middleware(['role:admin'])->name('kategori.edit');
+Route::put('kategori/{id}', [KategoriController::class, 'update'])->middleware(['role:admin'])->name('kategori.update');
+Route::get('kategori/show/{id}',[KategoriController::class,'show'])->middleware(['role:admin'])->name('kategori.show');
+Route::delete('kategori/{id}',[KategoriController::class, 'destroy'])->middleware(['role:admin'])->name('kategori.delete');
+
+Route::get('menu', [MenuController::class, 'index'])->middleware(['role:admin'])->name('menu.index');
+Route::get('menu/create', [MenuController::class, 'create'])->middleware(['role:admin'])->name('menu.create');
+Route::post('menu/store', [MenuController::class, 'store'])->middleware(['role:admin'])->name('menu.store');
+Route::get('menu/edit/{id}', [MenuController::class, 'edit'])->middleware(['role:admin'])->name('menu.edit');
+Route::put('menu/{id}', [MenuController::class, 'update'])->middleware(['role:admin'])->name('menu.update');
+Route::get('menu/show/{id}',[MenuController::class,'show'])->middleware(['role:admin'])->name('menu.show');
+Route::delete('menu/{id}',[MenuController::class, 'destroy'])->middleware(['role:admin'])->name('menu.delete');
+
+
 require __DIR__.'/auth.php';

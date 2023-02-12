@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Menu;
+use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\File;
 
 class MenuController extends Controller
 {
@@ -17,7 +19,8 @@ class MenuController extends Controller
     public function index()
     {
         $menu = Menu::all();
-        return view('menu.index')->with('menu',$menu);
+        $kategori = Kategori::all();
+        return view('menu.index')->with('menu',$menu)->with('kategori',$kategori);
     }
 
     /**
@@ -38,7 +41,31 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            // 'nama' => 'required|unique:menu',
+            'kategori' => 'required',
+            'stok'=>'required|numeric',
+            'harga' => 'required|numeric',
+            'status' => 'required',
+            'gambar' => 'required|image|mimes:jpg,jpeg,gif,svg|max:2048',
+        ]);
+        try{
+            $menu = new Menu;
+            $menu->nama = $request->nama;
+            $menu->kategori_id = $request->kategori;
+            $menu->stok = $request->stok;
+            $menu->harga = $request->harga;
+            $menu->status = $request->status;
+            $filegambar = $request->file('gambar');
+            $fileasli = $filegambar->getClientOriginalName();
+            $uploadgambar =$filegambar->move(public_path().'/foto_menu/',$fileasli);
+            $menu->gambar = $fileasli;
+            $menu->save();
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('errors','Menu Gagal dDsimpan');
+        }
+        return redirect('menu')->with('sukses','Menu Berhasil Disimpan');
     }
 
     /**
@@ -72,7 +99,37 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $menu = Menu::findOrFail($id);
+        $request->validate([
+            'nama' => 'required|unique:menu,nama,'.$id,
+            'kategori' => 'required',
+            'gambar' => 'image|mimes:jpg,jpeg,gif,svg,png|max:2048',
+            'stok'=>'required|numeric',
+            'harga' => 'required|numeric',
+            'status' => 'required',
+        ]);
+
+        try{
+            $menu = Menu::findOrFail($id);
+            $menu->nama = $request->nama;
+            $menu->kategori_id = $request->kategori;
+            $menu->stok = $request->stok;
+            $menu->harga = $request->harga;
+            $menu->status = $request->status;
+                if ($request->hasFile('gambar')){
+                    File::delete(public_path('foto_menu/'.$menu->gambar));
+                    $filegambar = $request->file('gambar');
+                    $fileasli = $filegambar->getClientOriginalName();
+                    $uploadgambar =$filegambar->move(public_path().'/foto_menu/',$fileasli);
+                    $menu->gambar = $fileasli;
+                }
+
+            $menu->save();
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('errors','Menu Gagal Diedit');
+        }
+        return redirect('menu')->with('selesai','Menu Berhasil Diedit');
     }
 
     /**
@@ -83,6 +140,27 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $menu = Menu::findOrFail($id);
+            File::delete(public_path('foto_menu/'.$menu->gambar));
+            $menu->delete();
+        }
+        catch(\Exception $e){
+            return redirect()->back()->with('errors','Menu Gagal Dihapus');
+        }
+        return redirect()->back()->with('sukses','Menu Berhasil Dihapus');
+    }
+
+    public function hapus($id)
+    {
+        // try{
+        //     $menu = Menu::findOrFail($id);
+        //     File::delete(asset('foto_menu/'.$menu->gambar));
+        //     $menu->gambar->delete();
+        // }
+        // catch(\Exception $e){
+        //     return redirect()->back()->withErrors(['Gambar Gagal Dihapus']);
+        // }
+        // return redirect()->back()->with('sukses','Gambar Berhasil Dihapus');
     }
 }

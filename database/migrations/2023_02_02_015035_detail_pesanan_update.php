@@ -13,9 +13,8 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('meja', function (Blueprint $table) {
-            $table->integer('nomor_meja');
-            $table->enum('status',['ready','used']);
+        Schema::table('dtail_pesanan',function(Blueprint $table){
+            $table->timestamps();
         });
     }
 

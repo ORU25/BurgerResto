@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Kategori;
+use App\Models\Pembayaran;
+use App\Models\Pesanan;
+use App\Models\DetailPesanan;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-class KategoriController extends Controller
+class PembayaranController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +19,9 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::all();
-        return view('kategori.index')->with('kategori',$kategori);
+        // $pembayaran = Pembayaran::all();
+        $pembayaran = Pembayaran::orderBy('status', 'asc')->orderBy('pesanan_id', 'desc')->get();
+        return view('pembayaran.index')->with('pembayaran',$pembayaran);
     }
 
     /**
@@ -38,19 +42,7 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'nama_kategori'=> ['required','string','unique:kategori']
-        ]);
-
-        try{
-            $kategori= new Kategori;
-            $kategori->nama_kategori = $request->nama_kategori;
-            $kategori->save();
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('errors','Kategori gagal disimpan');
-        }
-        return redirect('kategori')->with('sukses','Kategori berhasil disimpan');
+        //
     }
 
     /**
@@ -84,20 +76,20 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kategori = Kategori::findOrFail($id);
+        $pembayaran = Pembayaran::findOrFail($id);
         $request->validate([
-            'nama_kategori' => ['required','string','unique:kategori,nama_kategori,'.$id],
+            'status' => ['required']
         ]);
 
         try{
-            $kategori= Kategori::find($id);
-            $kategori->nama_kategori = $request->nama_kategori;
-            $kategori->save();
+            $pembayaran= Pembayaran::find($id);
+            $pembayaran->status = $request->status;
+            $pembayaran->save();
         }
         catch(\Exception $e){
-            return redirect()->back()->with('errors','Kategori Gagal Diedit');
+            return redirect()->back()->with('errors','Pembayaran Gagal Diedit');
         }
-        return redirect('kategori')->with('sukses','Kategori Berhasil Diedit');
+        return redirect('pembayaran')->with('sukses','Pembayaran Berhasil Diedit');
     }
 
     /**
@@ -108,13 +100,6 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $kategori = Kategori::find($id);
-            $kategori->delete();
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('errors','Kategori Gagal Dihapus');
-        }
-        return redirect()->back()->with('sukses','Kategori Berhasil Dihapus');
+        //
     }
 }

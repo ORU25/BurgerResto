@@ -23,4 +23,8 @@ class Menu extends Model
     public function kategori(){
         return $this->belongsTo('App\Models\Kategori');
     }
+
+    public function detail_pesanan(){
+        return $this->hasMany('App\Models\DetailPesanan');
+    }
 }

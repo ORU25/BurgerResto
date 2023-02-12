@@ -1,13 +1,12 @@
 <?php
 
 namespace App\Http\Controllers;
-
-use App\Models\Kategori;
+use App\Models\Meja;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
 
-class KategoriController extends Controller
+class MejaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class KategoriController extends Controller
      */
     public function index()
     {
-        $kategori = Kategori::all();
-        return view('kategori.index')->with('kategori',$kategori);
+        $meja = Meja::all();
+        return view('meja.index')->with('meja',$meja);
     }
 
     /**
@@ -39,18 +38,20 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori'=> ['required','string','unique:kategori']
+            'nomor_meja'=> ['required'],
+            'status' => ['required']
         ]);
 
         try{
-            $kategori= new Kategori;
-            $kategori->nama_kategori = $request->nama_kategori;
-            $kategori->save();
+            $meja= new Meja;
+            $meja->nomor_meja = $request->nomor_meja;
+            $meja->status = $request->status;
+            $meja->save();
         }
         catch(\Exception $e){
-            return redirect()->back()->with('errors','Kategori gagal disimpan');
+            return redirect()->back()->with('errors','Meja gagal disimpan');
         }
-        return redirect('kategori')->with('sukses','Kategori berhasil disimpan');
+        return redirect('meja')->with('sukses','Meja berhasil disimpan');
     }
 
     /**
@@ -84,20 +85,20 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $kategori = Kategori::findOrFail($id);
+        $meja = Meja::findOrFail($id);
         $request->validate([
-            'nama_kategori' => ['required','string','unique:kategori,nama_kategori,'.$id],
+            'status' => ['required']
         ]);
 
         try{
-            $kategori= Kategori::find($id);
-            $kategori->nama_kategori = $request->nama_kategori;
-            $kategori->save();
+            $meja= meja::find($id);
+            $meja->status = $request->status;
+            $meja->save();
         }
         catch(\Exception $e){
-            return redirect()->back()->with('errors','Kategori Gagal Diedit');
+            return redirect()->back()->with('errors','Meja Gagal Diedit');
         }
-        return redirect('kategori')->with('sukses','Kategori Berhasil Diedit');
+        return redirect('meja')->with('sukses','Meja Berhasil Diedit');
     }
 
     /**
@@ -108,13 +109,13 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            $kategori = Kategori::find($id);
-            $kategori->delete();
-        }
-        catch(\Exception $e){
-            return redirect()->back()->with('errors','Kategori Gagal Dihapus');
-        }
-        return redirect()->back()->with('sukses','Kategori Berhasil Dihapus');
+        // try{
+        //     $meja = Meja::find($id);
+        //     $meja->delete();
+        // }
+        // catch(\Exception $e){
+        //     return redirect()->back()->with('errors','Meja Gagal Dihapus');
+        // }
+        // return redirect()->back()->with('sukses','Meja Berhasil Dihapus');
     }
 }

@@ -6,7 +6,7 @@
     </x-slot>
 
     <div>
-        @if (session('sukse'))
+        @if (session('sukses'))
             <div class="w-1/2 bg-green-500 flex flex-col items-center font-bold text-gray-200 rounded-md my-3 py-3 mx-auto">
                 {{ session('sukses') }}
             </div>

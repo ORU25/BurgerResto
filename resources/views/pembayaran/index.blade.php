@@ -48,11 +48,21 @@
                             </x-table-column>
                             <x-table-column>
                                 <div class="flex justify-evenly">
-                                    <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                    <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                            label="Detail" onclick="toggleModal('detail_pembayaran{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>    
+                                    <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                             label="Edit" onclick="toggleModal('edit_pembayaran{{ $loop->iteration }}')" icon="fa-solid fa-pencil"/>
+                                    @if ($pembayaran->status == "paid")
+                                        
+                                        <x-nav-button :href="route('print_struk',$pembayaran->id)" id="print{{ $loop->iteration }}" 
+                                            class="items-center py-3 px-4 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-400 active:bg-green-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" 
+                                            icon="fa-solid fa-print" label="struk" />
+                                    @endif
+                                    
                                 </div>
+                                
 
-                                <x-modal_edit id="edit_pembayaran{{ $loop->iteration }}" title="Edit Status Pembayaran No Pesanan {{ $pembayaran->pesanan_id }}" form="true">
+                                <x-modal_edit id="edit_pembayaran{{ $loop->iteration }}" title="Edit Status Pembayaran No {{ $pembayaran->pesanan_id }}" form="true">
                                     <form action="{{ route('pembayaran.update',$pembayaran->id) }}" method="POST" class="">
                                         @csrf
                                         @method('PUT')
@@ -75,6 +85,65 @@
                                         
                                 </x-modal_edit>
                                 
+                                <x-modal_view id="detail_pembayaran{{ $loop->iteration }}" title="Detail Pesanan No {{ $pembayaran->pesanan_id }}" form="false">
+                                    <table class="mb-3">
+                                        <tr>
+                                            <td class="pr-3">Kasir</td>
+                                            <td>: {{ $pembayaran->pesanan->user->username }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pr-3">Status</td>
+                                            <td>: {{ $pembayaran->status }}</td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pr-3">No Meja</td>
+                                            <td>: {{ $pembayaran->pesanan->meja->nomor_meja }}</td>
+                                        </tr>
+                                    </table>
+                                    
+                                    <x-table id="tabel_detail_pembayaran">
+                                        <x-slot name="header">
+                                            <x-table-column>Menu</x-table-column>
+                                            <x-table-column>Harga</x-table-column>
+                                            <x-table-column>Jumlah</x-table-column>
+                                            <x-table-column>Total</x-table-column>
+                                        </x-slot>
+                                        @foreach ($pembayaran->pesanan->detail_pesanan as $detail)
+                                            <tr>
+                                                <x-table-column>
+                                                    <div class="text-center">
+                                                        {{ $detail->menu->nama }}
+                                                    </div>
+                                                </x-table-column>
+                                                <x-table-column>
+                                                    <div class="text-center">
+                                                        Rp{{ number_format($detail->menu->harga, 2,",",".") }}
+                                                    </div>
+                                                </x-table-column>
+                                                <x-table-column>
+                                                    <div class="text-center">
+                                                        {{ $detail->jumlah }}
+                                                    </div>
+                                                </x-table-column>
+                                                <x-table-column>
+                                                    <div class="text-center">
+                                                        Rp{{ number_format($detail->menu->harga * $detail->jumlah, 2,",",".") }}
+                                                    </div>
+                                                </x-table-column>
+                                            </tr>                                           
+                                        @endforeach
+                                            <tr>
+                                                <td></td>
+                                                <td></td>
+                                                <td class="flex justify-center py-2">Total Harga: </td>
+                                                <x-table-column>
+                                                    <div class="text-center">
+                                                        Rp{{ number_format($pembayaran->total_harga, 2,",",".") }}
+                                                    </div>
+                                                </x-table-column>
+                                            </tr>
+                                    </x-table>
+                                </x-modal_view>
                             </x-table-column>
                         </tr>
                     @endforeach

@@ -27,7 +27,7 @@ class Pesanan extends Model
         return $this->hasMany('App\Models\DetailPesanan');
     }
 
-    public function pembelian(){
+    public function pembayaran(){
         return $this->hasOne('App\Models\Pembayaran');
     }
 }

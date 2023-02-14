@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Controllers\ProfileController;
+use App\Models\Pembayaran;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -68,6 +69,8 @@ Route::middleware('auth')->group(function () {
     Route::post('pembayaran/store', [PembayaranController::class, 'store'])->middleware(['role:admin,kasir,'])->name('pembayaran.store');
     Route::put('pembayaran/{id}', [PembayaranController::class, 'update'])->middleware(['role:admin,kasir,'])->name('pembayaran.update');
     Route::delete('pembayaran/{id}', [PembayaranController::class, 'destroy'])->middleware(['role:admin,kasir,'])->name('pembayaran.delete');
+
+    Route::get('pembayaran/struk/{id}', [PembayaranController::class, 'struk'])->middleware(['role:admin,kasir,'])->name('print_struk');
     
 });
 require __DIR__.'/auth.php';

@@ -43,7 +43,11 @@
                                     </div>
                                 </x-table-column>
                                 <x-table-column>{{ $pesanan->user->username }}</x-table-column>
-                                <x-table-column>{{ $pesanan->meja->nomor_meja }}</x-table-column>
+                                <x-table-column>
+                                    <div class="text-center">
+                                        {{ $pesanan->meja->nomor_meja }}
+                                    </div>
+                                </x-table-column>
                                 <x-table-column>{{ $pesanan->created_at }}</x-table-column>
                                 <x-table-column>
                                     <div class="flex justify-center">

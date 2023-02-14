@@ -18,6 +18,6 @@ class Pembayaran extends Model
     ];
 
     public function pesanan(){
-        return $this->belongsTo('App\Models\Pemesanan');
+        return $this->belongsTo('App\Models\Pesanan');
     }
 }

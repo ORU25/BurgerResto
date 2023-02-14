@@ -102,4 +102,9 @@ class PembayaranController extends Controller
     {
         //
     }
+
+    public function struk($id){
+        $pembayaran = Pembayaran::findOrFail($id);
+        return view('struk')->with('pembayaran',$pembayaran);
+    }
 }

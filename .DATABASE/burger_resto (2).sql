@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 11, 2023 at 02:14 PM
+-- Generation Time: Feb 16, 2023 at 02:50 AM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -42,10 +42,9 @@ CREATE TABLE `dtail_pesanan` (
 --
 
 INSERT INTO `dtail_pesanan` (`pesanan_id`, `menu_id`, `jumlah`, `status`, `created_at`, `updated_at`, `id`) VALUES
-(28, 3, 2, 'proses', '2023-02-11 04:41:17', '2023-02-11 04:41:17', 16),
-(28, 13, 1, 'proses', '2023-02-11 04:41:17', '2023-02-11 04:41:17', 17),
-(29, 12, 3, 'proses', '2023-02-11 05:04:44', '2023-02-11 05:04:44', 18),
-(29, 13, 2, 'proses', '2023-02-11 05:04:44', '2023-02-11 05:04:44', 19);
+(35, 3, 1, 'proses', '2023-02-15 06:15:41', '2023-02-15 06:15:41', 30),
+(36, 3, 1, 'proses', '2023-02-15 15:36:19', '2023-02-15 15:36:19', 31),
+(36, 13, 3, 'proses', '2023-02-15 15:36:19', '2023-02-15 15:36:19', 32);
 
 -- --------------------------------------------------------
 
@@ -104,14 +103,14 @@ CREATE TABLE `meja` (
 --
 
 INSERT INTO `meja` (`status`, `created_at`, `updated_at`, `id`, `nomor_meja`) VALUES
-('ready', '2023-01-31 17:30:24', '2023-02-11 05:05:01', 1, 1),
-('used', '2023-01-31 17:30:37', '2023-02-11 04:41:17', 2, 2),
-('used', '2023-01-31 17:30:40', '2023-02-11 05:04:44', 3, 3),
-('ready', '2023-01-31 17:30:43', '2023-02-11 05:05:05', 4, 4),
-('ready', '2023-01-31 17:30:46', '2023-02-11 05:05:11', 5, 5),
-('ready', '2023-01-31 17:30:51', '2023-01-31 17:30:51', 6, 6),
+('used', '2023-01-31 17:30:24', '2023-02-15 06:15:41', 1, 1),
+('used', '2023-01-31 17:30:37', '2023-02-15 15:36:19', 2, 2),
+('ready', '2023-01-31 17:30:40', '2023-02-11 05:04:44', 3, 3),
+('ready', '2023-01-31 17:30:43', '2023-02-15 06:09:22', 4, 4),
+('ready', '2023-01-31 17:30:46', '2023-02-11 22:48:45', 5, 5),
+('ready', '2023-01-31 17:30:51', '2023-02-15 06:10:44', 6, 6),
 ('ready', '2023-01-31 17:30:55', '2023-01-31 17:30:55', 7, 7),
-('ready', '2023-01-31 17:30:57', '2023-02-05 04:23:12', 8, 8),
+('ready', '2023-01-31 17:30:57', '2023-02-11 22:53:29', 8, 8),
 ('ready', '2023-01-31 17:31:03', '2023-02-05 04:24:12', 9, 9),
 ('ready', '2023-01-31 17:31:09', '2023-02-11 05:05:16', 10, 10);
 
@@ -138,10 +137,11 @@ CREATE TABLE `menu` (
 --
 
 INSERT INTO `menu` (`id`, `nama`, `kategori_id`, `gambar`, `harga`, `stok`, `status`, `created_at`, `updated_at`) VALUES
-(3, 'Chicken Burger', 3, 'BurgerAyam.jpg', 25000.00, 22, 'ready', '2023-01-18 18:19:46', '2023-02-11 04:41:17'),
-(9, 'Double Beef Burger', 1, 'Double Burger.jpeg', 35000.00, 8, 'ready', '2023-01-29 21:37:59', '2023-02-05 05:36:23'),
-(12, 'Kebab Beef', 4, 'KebabBeef.jpg', 42000.00, 29, 'ready', '2023-01-30 15:44:24', '2023-02-11 05:04:44'),
-(13, 'Coke', 3, 'Coke.jpg', 12000.00, 54, 'ready', '2023-01-30 15:50:54', '2023-02-11 05:04:44');
+(3, 'Chicken Burger', 3, 'BurgerAyam.jpg', 25000.00, 128, 'ready', '2023-01-18 18:19:46', '2023-02-15 15:36:19'),
+(9, 'Double Beef Burger', 1, 'Double Burger.jpeg', 35000.00, 89, 'ready', '2023-01-29 21:37:59', '2023-02-15 04:39:33'),
+(12, 'Kebab Beef', 4, 'KebabBeef.jpg', 42000.00, 77, 'ready', '2023-01-30 15:44:24', '2023-02-15 04:39:39'),
+(13, 'Coke', 3, 'Coke.jpg', 12000.00, 228, 'ready', '2023-01-30 15:50:54', '2023-02-15 15:36:19'),
+(14, 'Ice Lemon Tea', 3, 'ice lemon tea.jpeg', 15000.00, 119, 'ready', '2023-02-15 17:43:45', '2023-02-15 17:43:45');
 
 -- --------------------------------------------------------
 
@@ -215,8 +215,8 @@ CREATE TABLE `pembayaran` (
 --
 
 INSERT INTO `pembayaran` (`id`, `pesanan_id`, `total_harga`, `status`, `created_at`, `updated_at`) VALUES
-(1, 28, 62000.00, 'unpaid', '2023-02-11 04:41:17', '2023-02-11 05:10:56'),
-(2, 29, 150000.00, 'unpaid', '2023-02-11 05:04:44', '2023-02-11 05:04:44');
+(8, 35, 25000.00, 'unpaid', '2023-02-15 06:15:41', '2023-02-15 06:15:41'),
+(9, 36, 61000.00, 'unpaid', '2023-02-15 15:36:19', '2023-02-15 15:36:19');
 
 -- --------------------------------------------------------
 
@@ -256,8 +256,8 @@ CREATE TABLE `pesanan` (
 --
 
 INSERT INTO `pesanan` (`id`, `user_id`, `meja_id`, `created_at`, `updated_at`) VALUES
-(28, 1, 2, '2023-02-11 04:41:17', '2023-02-11 04:41:17'),
-(29, 1, 3, '2023-02-11 05:04:44', '2023-02-11 05:04:44');
+(35, 1, 1, '2023-02-15 06:15:41', '2023-02-15 06:15:41'),
+(36, 17, 2, '2023-02-15 15:36:19', '2023-02-15 15:36:19');
 
 -- --------------------------------------------------------
 
@@ -287,8 +287,9 @@ INSERT INTO `users` (`id`, `username`, `email`, `hp`, `role`, `email_verified_at
 (4, 'kasir1', 'kasir@gmail.com', '7654322345', 'kasir', NULL, '$2y$10$NY.Uc5/y7C//LN/W.cOD2egoc.Y2CtjtirIQ4YJdKuyQaBMKh5HE2', NULL, '2023-01-05 16:55:42', '2023-01-05 16:55:42'),
 (6, 'pegawai', 'pegawai@gmail.com', '54334542', 'pegawai', NULL, '$2y$10$DqnFmkUfRPOc4MCyIVwYWOsgMkPdfi2ZpXYJOC0i79LaS3n26D6f2', NULL, '2023-01-05 16:56:44', '2023-01-05 16:56:44'),
 (9, 'pegawai2', 'pegawai2@gmail.com', '7654322345', 'pegawai', NULL, '$2y$10$4owYjlg1jrRjJ.BBwPjd8OeUFuquSEMF0xwUsMRh1dEbXHAc//PHK', NULL, '2023-01-08 05:12:27', '2023-01-08 05:12:27'),
-(13, 'pegawai 3', 'pegawai3@gmail.com', '542635452', 'pegawai', NULL, '$2y$10$pScZlHrfXGw4eFHhIfg8Aeb65M4CZRhCrQ8UmjA9oiUxyFjSAmmHa', NULL, '2023-01-10 04:39:15', '2023-01-10 04:39:15'),
-(15, 'pegawai 4', 'pegawai4@gmail.com', '54241323129', 'pegawai', NULL, '$2y$10$cA8d447BNGpGr4gtyb0Ns.0PYYIpxdKpmNz4MeMa03NSC6650Yeh6', NULL, '2023-01-16 17:19:27', '2023-01-17 16:19:09');
+(16, 'kasir2', 'kasir2@gmail.com', '654323456', 'kasir', NULL, '$2y$10$dQfBALZFZVUl.GruBFYJZOpb55oAfwj9GJ9UNCbrcA33LUU2dDary', NULL, '2023-02-13 16:16:57', '2023-02-13 16:16:57'),
+(17, 'mesin1', 'mesin1@gmail.com', '002', 'customer', NULL, '$2y$10$GUVNhWaIjtuLBSSXdG.Mqu.8CD7.EkNs9rBQjv5DQkJaOrpEzCqcm', NULL, '2023-02-15 15:24:20', '2023-02-15 15:24:32'),
+(18, 'mesin2', 'mesin2@gmail.com', '003', 'customer', NULL, '$2y$10$L5o.tK/4XsMxsa7iq7RFluJ.3brrO6P9rsyY.hyRzAyWNCeKcq9i.', NULL, '2023-02-15 15:25:56', '2023-02-15 15:25:56');
 
 --
 -- Indexes for dumped tables
@@ -378,7 +379,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `dtail_pesanan`
 --
 ALTER TABLE `dtail_pesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -402,7 +403,7 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -414,7 +415,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -426,13 +427,13 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

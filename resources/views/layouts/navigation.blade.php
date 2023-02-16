@@ -16,6 +16,11 @@
                         {{ __('Dashboard') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('pesanan.pesan')" :active="request()->routeIs('pesanan.pesan')">
+                        {{ __('Home') }}
+                    </x-nav-link>
+                </div>
                 @if (\Auth::user()->role == 'admin')
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
@@ -32,7 +37,26 @@
                             {{ __('Menu') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('meja.index')" :active="request()->routeIs('meja.index')">
+                            {{ __('Meja') }}
+                        </x-nav-link>
+                    </div>
+    
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('pesanan.index')" :active="request()->routeIs('pesanan.index')">
+                            {{ __('Pesanan') }}
+                        </x-nav-link>
+                    </div>
                 @endif
+                @if (\Auth::user()->role == 'admin' || \Auth::user()->role == 'kasir')
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('pembayaran.index')" :active="request()->routeIs('pembayaran.index')">
+                        {{ __('Pembayaran') }}
+                    </x-nav-link>
+                </div>
+                @endif
+                @if (\Auth::user()->role == 'pegawai')
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('meja.index')" :active="request()->routeIs('meja.index')">
                         {{ __('Meja') }}
@@ -42,12 +66,6 @@
                 <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('pesanan.index')" :active="request()->routeIs('pesanan.index')">
                         {{ __('Pesanan') }}
-                    </x-nav-link>
-                </div>
-                @if (\Auth::user()->role == 'admin' || \Auth::user()->role == 'kasir')
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
-                    <x-nav-link :href="route('pembayaran.index')" :active="request()->routeIs('pembayaran.index')">
-                        {{ __('Pembayaran') }}
                     </x-nav-link>
                 </div>
                 @endif
@@ -107,6 +125,11 @@
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
         </div>
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('pesanan.pesan')" :active="request()->routeIs('pesanan.index')">
+                {{ __('Home') }}
+            </x-responsive-nav-link>
+        </div>
         @if (\Auth::user()->role == 'admin')
             <div class="pt-2 pb-3 space-y-1">
                 <x-responsive-nav-link :href="route('user.index')" :active="request()->routeIs('user.index')">
@@ -123,7 +146,27 @@
                     {{ __('Menu') }}
                 </x-responsive-nav-link>
             </div>
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('meja.index')" :active="request()->routeIs('meja.index')">
+                    {{ __('Meja') }}
+                </x-responsive-nav-link>
+            </div>
+    
+            <div class="pt-2 pb-3 space-y-1">
+                <x-responsive-nav-link :href="route('pesanan.index')" :active="request()->routeIs('pesanan.index')">
+                    {{ __('Pesanan') }}
+                </x-responsive-nav-link>
+            </div>
         @endif
+        @if (\Auth::user()->role == 'admin' || \Auth::user()->role == 'kasir')
+        <div class="pt-2 pb-3 space-y-1">
+            <x-responsive-nav-link :href="route('pembayaran.index')" :active="request()->routeIs('pembayaran.index')">
+                {{ __('Pembayaran') }}
+            </x-responsive-nav-link>
+        </div>  
+        @endif
+        
+        @if(\Auth::user()->role == 'pegawai')
         <div class="pt-2 pb-3 space-y-1">
             <x-responsive-nav-link :href="route('meja.index')" :active="request()->routeIs('meja.index')">
                 {{ __('Meja') }}
@@ -135,13 +178,9 @@
                 {{ __('Pesanan') }}
             </x-responsive-nav-link>
         </div>
-        @if (\Auth::user()->role == 'admin' || \Auth::user()->role == 'kasir')
-        <div class="pt-2 pb-3 space-y-1">
-            <x-responsive-nav-link :href="route('pembayaran.index')" :active="request()->routeIs('pembayaran.index')">
-                {{ __('Pembayaran') }}
-            </x-responsive-nav-link>
-        </div>  
+        
         @endif
+        
 
 
         <!-- Responsive Settings Options -->

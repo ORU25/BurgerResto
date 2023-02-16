@@ -156,6 +156,69 @@ class PesananController extends Controller
         //
     }
 
-    
+    public function pesan(){
+        $meja = Meja::all();
+        $menu = Menu::all();
+        return view('pesan')->with('meja',$meja)->with('menu',$menu);
+    }
+
+    public function storePesanan(Request $request)
+    {
+        $request->validate([
+            'nomor_meja' => 'required',
+            'menu' => 'required',
+            'jumlah' => 'required',
+
+        ]);
+        try{
+            $total_harga = 0;
+
+            $pesanan = new Pesanan;
+            $pesanan->user_id = \Auth::user()->id;
+            $pesanan->meja_id = $request->nomor_meja;
+            $pesanan->save();
+
+            $menus = $request->input('menu');
+            $jumlah = $request->input('jumlah');
+
+            foreach( $menus as $key => $menu){
+                
+                    $detailpesanan = new DetailPesanan;
+                    $detailpesanan->pesanan_id = $pesanan->id;
+                    $detailpesanan->menu_id = $menu;
+                    $detailpesanan->jumlah = $jumlah[$key];
+                    $detailpesanan->status = "proses";
+                    $detailpesanan->save();
+
+                    $current_menu = Menu::find($menu);
+                    $current_menu->stok -= $jumlah[$key];
+                    $current_menu->save();
+                    
+                    $total_harga += $current_menu->harga * $jumlah[$key];
+
+                
+            }
+
+            $meja = Meja::where('nomor_meja', $request->nomor_meja)->first();
+            $meja->status = "used";
+            $meja->save();
+
+            $pembayaran = new Pembayaran;
+            $pembayaran->pesanan_id = $pesanan->id;
+            $pembayaran->total_harga = $total_harga;
+            $pembayaran->status = "unpaid";
+            $pembayaran->save();
+
+
+
+
+            
+
+        }catch(\Exception $e){
+            return redirect()->back()->with('errors','Pesanan Gagal dDsimpan');
+        }
+        return redirect('pesan')->with('sukses','Pesanan Berhasil Disimpan');
+    }
+
 }
 

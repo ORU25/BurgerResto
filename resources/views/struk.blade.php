@@ -31,6 +31,10 @@
             <td>No Pesanan</td>
             <td>: {{ $pembayaran->pesanan_id }}</td>
         </tr>
+        <tr>
+            <td>Tanggal</td>
+            <td>: {{ $pembayaran->pesanan->created_at }}</td>
+        </tr>
     </table>
     <hr>
     <table style="width: 100%;">

@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
-Route::get('/dashboard', function () {
+Route::get('/', function () {
     return view('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
@@ -61,7 +61,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('meja/{id}', [MejaController::class, 'destroy'])->middleware(['role:admin,kasir,pegawai'])->name('meja.delete');
 
     Route::get('pesanan', [PesananController::class, 'index'])->middleware(['role:admin,kasir,pegawai'])->name('pesanan.index');
-    Route::post('pesanan/store', [PesananController::class, 'store'])->middleware(['role:admin,kasir,pegawai'])->name('pesanan.store');
+    Route::post('pesanan/store', [PesananController::class, 'store'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.store');
     Route::put('pesanan/{id}', [PesananController::class, 'update'])->middleware(['role:admin,kasir,pegawai'])->name('pesanan.update');
     Route::delete('pesanan/{id}', [PesananController::class, 'destroy'])->middleware(['role:admin,kasir,pegawai'])->name('pesanan.delete');
 
@@ -72,5 +72,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('pembayaran/struk/{id}', [PembayaranController::class, 'struk'])->middleware(['role:admin,kasir,'])->name('print_struk');
     
+    Route::get('pesan', [PesananController::class, 'pesan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.pesan');
+    Route::post('pesan/store', [PesananController::class, 'storePesanan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('storePesanan');
+
 });
 require __DIR__.'/auth.php';

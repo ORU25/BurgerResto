@@ -25,7 +25,7 @@ id="{{ $id }}">
 
         {{-- footer --}}
         <div class="flex items-center justify-center p-6 border-t border-solid border-slate-200 rounded-b">
-            <button class="bg-green-600 hover:bg-green-400 text-white active:bg-green-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-pencil"
+            <button class="tracking-widest bg-green-600 hover:bg-green-400 text-white active:bg-green-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-pencil"
             type="submit">
                 &nbsp;Edit
             </button>

@@ -81,7 +81,7 @@
                                                         </div>
                                                     </x-table-column>
                                                 </tr>
-                                                @endforeach
+                                            @endforeach
                                         </x-table>
                                     </x-modal_view>
         
@@ -159,6 +159,7 @@
         }
 
         var counter = 1;
+        
         function addSelect(){
             var container = document.getElementById("tbody");
             var row = document.createElement("tr");

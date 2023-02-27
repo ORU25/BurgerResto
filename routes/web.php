@@ -74,6 +74,7 @@ Route::middleware('auth')->group(function () {
     
     Route::get('pesan', [PesananController::class, 'pesan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.pesan');
     Route::post('pesan/store', [PesananController::class, 'storePesanan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('storePesanan');
+    Route::post('pesan/struk/{id}', [PesananController::class, 'struk_pesanan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('struk_pesanan');
 
 });
 require __DIR__.'/auth.php';

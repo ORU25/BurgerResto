@@ -26,7 +26,8 @@ class PesananController extends Controller
         $detail_pesanan = DetailPesanan::all();
         $meja = Meja::all();
         $menu = Menu::all();
-        return view('pesanan.index')->with('pesanan',$pesanan)->with('detail_pesanan',$detail_pesanan)->with('meja',$meja)->with('menu',$menu);
+        $pembayaran = Pembayaran::all();
+        return view('pesanan.index')->with('meja',$meja)->with('menu',$menu)->with('pembayaran',$pembayaran);
     }
 
     /**
@@ -170,7 +171,6 @@ class PesananController extends Controller
             'jumlah' => 'required',
 
         ]);
-        try{
             $total_harga = 0;
 
             $pesanan = new Pesanan;
@@ -212,13 +212,13 @@ class PesananController extends Controller
 
 
 
-            
-
-        }catch(\Exception $e){
-            return redirect()->back()->with('errors','Pesanan Gagal dDsimpan');
-        }
-        return redirect('pesan')->with('sukses','Pesanan Berhasil Disimpan');
+        return view('struk_pesanan')->with('pembayaran',$pembayaran);
     }
+
+    // public function struk_pesanan($id){
+    //     $pembayaran = Pembayaran::findOrFail($id);
+    //     return view('struk_pesanan')->with('pembayaran',$pembayaran);
+    // }
 
 }
 

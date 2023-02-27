@@ -12,12 +12,39 @@
         h3{
             padding: 5px;
         }
+        h5{
+            padding: 5px;
+        }
         
-        
+        @media print{
+            .noprint{
+                display:none;
+            }
+        }
+        .beranda{
+            padding: 20px;
+            background-color: blue;
+            color: white;
+            text-transform: uppercase    
+            font-size: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            
+        }
+        .footer{
+
+            padding-bottom: 30px;
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+        }
     </style>
 </head>
 <body>
     <h3>Burger Resto</h3>
+    <h5>Struk ini bukti pembuatan pesanan, silahkan bawa struk ke kasir</h5>
     <table>
         <tr>
             <td>Kasir</td>
@@ -79,6 +106,9 @@
                 </td>
             </tr>
     </table>
+    <div class="footer noprint">
+        <a href="{{ route('pesanan.pesan') }}" class="beranda noprint">Kembali Ke Beranda</a>
+    </div>
     <script>
         window.addEventListener("load", window.print());
     </script>

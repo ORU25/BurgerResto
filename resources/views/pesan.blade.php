@@ -9,7 +9,7 @@
     <div class="flex justify-between max-w-screen-2xl mx-auto">
     
         <div class="w-1/3 bg-red-200 max-h-screen p-4">
-            <div class="bg-white h-full shadow-lg shadow-gray-400 pt-3">
+            <div class="bg-white h-full shadow-lg shadow-gray-400 py-3  overflow-auto">
                 <h1  class="text-center text-black font-bold text-4xl " >PESANAN ANDA</h1>
                 <div class="grid grid-rows-1 my-4 mx-4"> 
                     <form action="{{ route('storePesanan') }}" method="POST" id="tambah_pesan" >
@@ -36,7 +36,7 @@
                                     <td class="px-2 py-2 w-2/6 border border-gray-300 bg-gray-200 ">Harga</td>
                                     <td class="px-2 py-2 w-1/6 border border-gray-300 bg-gray-200 ">
                                         <div class="flex justify-center">
-                                            <div class="fa-solid fa-plus"></div>
+                                            <div class="fa-solid fa-cart-shopping"></div>
                                         </div>
                                     </td>
                                     
@@ -61,6 +61,15 @@
                     
                     
                 </div>
+                @if (session('sukses'))
+                <div class="w-1/2 bg-green-500 flex flex-col items-center font-bold text-gray-200 rounded-md my-3 py-3 mx-auto">
+                    {{ session('sukses') }}
+                </div>
+                @elseif(session('errors'))
+                    <div class="w-1/2 bg-red-500 flex flex-col items-center font-bold text-gray-200 rounded-md my-3 py-3 mx-auto">
+                        {{ session('errors') }}
+                    </div>
+                @endif
             </div>
         </div>
 
@@ -99,7 +108,7 @@
             <div class="grid grid-cols-2">
                 @foreach($menu as $menu)
                     <div href="#" class="flex justify-center rounded-md m-4  px-2 py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 hover:bg-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300">
-                        <img class="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('foto_menu/'.$menu->gambar) }}" alt="" />
+                        <img class="object-cover w-full rounded-t-lg h-96 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('foto_menu/'.$menu->gambar) }}" alt="" />
                         <div class="bg-white p-5 ">
                             <h5 class="bg-white text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">{{ $menu->nama }}</h5>
                             <h6 class="bg-white mb-3 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rp{{ number_format($menu->harga, 2,",",".") }}</h6>

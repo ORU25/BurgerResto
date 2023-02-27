@@ -32,62 +32,65 @@
                         <x-table-column>Tanggal</x-table-column>
                         <x-table-column>Aksi</x-table-column>
                     </x-slot>
-                    @foreach ($pesanan as $pesanan)
-                        @if ($pesanan->detail_pesanan->pluck('status')->contains('proses'))
-                            <tr class="hover:bg-slate-100 ">
+                    
+                    @foreach ($pembayaran as $pembayaran)
+                        @if ($pembayaran->status == "paid") 
+                            @if ($pembayaran->pesanan->detail_pesanan->pluck('status')->contains('proses'))
+                                <tr class="hover:bg-slate-100 ">
 
 
-                                <x-table-column>
-                                    <div class="text-center">
-                                        {{ $pesanan->id }}
-                                    </div>
-                                </x-table-column>
-                                <x-table-column>{{ $pesanan->user->username }}</x-table-column>
-                                <x-table-column>
-                                    <div class="text-center">
-                                        {{ $pesanan->meja->nomor_meja }}
-                                    </div>
-                                </x-table-column>
-                                <x-table-column>{{ $pesanan->created_at }}</x-table-column>
-                                <x-table-column>
-                                    <div class="flex justify-center">
-                                        <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                                label="Detail" onclick="toggleModal('detail_pesanan{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>
+                                    <x-table-column>
+                                        <div class="text-center">
+                                            {{ $pembayaran->pesanan->id }}
+                                        </div>
+                                    </x-table-column>
+                                    <x-table-column>{{ $pembayaran->pesanan->user->username }}</x-table-column>
+                                    <x-table-column>
+                                        <div class="text-center">
+                                            {{ $pembayaran->pesanan->meja->nomor_meja }}
+                                        </div>
+                                    </x-table-column>
+                                    <x-table-column>{{ $pembayaran->pesanan->created_at }}</x-table-column>
+                                    <x-table-column>
+                                        <div class="flex justify-center">
+                                            <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                                    label="Detail" onclick="toggleModal('detail_pesanan{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>
 
+                                            
+                                        </div>
                                         
-                                    </div>
-                                    
-                                    <x-modal_view id="detail_pesanan{{ $loop->iteration }}" title="Detail Pesanan No {{ $loop->iteration }}" form="false">
-                                        <x-table id="tabel_detail_pesanan">
-                                            <x-slot name="header">
-                                                <x-table-column>Menu</x-table-column>
-                                                <x-table-column>Jumlah</x-table-column>
-                                                <x-table-column>Status</x-table-column>
-                                                <x-table-column>Aksi</x-table-column>
-                                            </x-slot>
-                                            @foreach ($pesanan->detail_pesanan as $detail)
-                                                <tr>
-                                                    <x-table-column>{{ $detail->menu->nama }}</x-table-column>
-                                                    <x-table-column>{{ $detail->jumlah }}</x-table-column>
-                                                    <x-table-column>{{ $detail->status }}</x-table-column>
-                                                    <x-table-column>
-                                                        <div class="flex justify-center">
-                                                            <form action="{{ route('pesanan.update',$detail->id) }} " method="POST">
-                                                                @csrf
-                                                                @method('PUT')
-                                                                <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                                                label="Ubah Status"  icon="fa-solid fa-pencil"/>
-                                                            </form>
-                                                        </div>
-                                                    </x-table-column>
-                                                </tr>
-                                            @endforeach
-                                        </x-table>
-                                    </x-modal_view>
-        
-                                    
-                                </x-table-column>
-                            </tr>
+                                        <x-modal_view id="detail_pesanan{{ $loop->iteration }}" title="Detail Pesanan No {{ $loop->iteration }}" form="false">
+                                            <x-table id="tabel_detail_pesanan">
+                                                <x-slot name="header">
+                                                    <x-table-column>Menu</x-table-column>
+                                                    <x-table-column>Jumlah</x-table-column>
+                                                    <x-table-column>Status</x-table-column>
+                                                    <x-table-column>Aksi</x-table-column>
+                                                </x-slot>
+                                                @foreach ($pembayaran->pesanan->detail_pesanan as $detail)
+                                                    <tr>
+                                                        <x-table-column>{{ $detail->menu->nama }}</x-table-column>
+                                                        <x-table-column>{{ $detail->jumlah }}</x-table-column>
+                                                        <x-table-column>{{ $detail->status }}</x-table-column>
+                                                        <x-table-column>
+                                                            <div class="flex justify-center">
+                                                                <form action="{{ route('pesanan.update',$detail->id) }} " method="POST">
+                                                                    @csrf
+                                                                    @method('PUT')
+                                                                    <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                                                    label="Ubah Status"  icon="fa-solid fa-pencil"/>
+                                                                </form>
+                                                            </div>
+                                                        </x-table-column>
+                                                    </tr>
+                                                @endforeach
+                                            </x-table>
+                                        </x-modal_view>
+            
+                                        
+                                    </x-table-column>
+                                </tr>
+                            @endif
                         @endif
                     @endforeach
                 </x-table>

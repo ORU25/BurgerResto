@@ -86,14 +86,17 @@ class MejaController extends Controller
     public function update(Request $request, $id)
     {
         $meja = Meja::findOrFail($id);
-        $request->validate([
-            'status' => ['required']
-        ]);
+    
 
         try{
-            $meja= meja::find($id);
-            $meja->status = $request->status;
-            $meja->save();
+            if($meja->status == "used"){
+                $meja->status = "ready";
+                $meja->save();
+            }elseif($meja->status == "ready"){
+                $meja->status = "used";
+                $meja->save();
+            }
+           
         }
         catch(\Exception $e){
             return redirect()->back()->with('errors','Meja Gagal Diedit');

@@ -17,11 +17,11 @@
         @endif
 
         <div class="max-w-7xl bg-slate-100 mx-auto py-5">
-            <div class="sm:mx-6 lg:mx-8 sm:px-6 lg:px-8 bg-red-300 rounded-md pb-8">
-                
+            <div class="sm:mx-6 lg:mx-8 sm:px-6 lg:px-8 bg-red-300 rounded-md pb-8 pt-5">
+                @if (\Auth::user()->role == 'admin')
                 <x-button type="submit" class="items-center py-3 px-4 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-400 active:bg-green-600 focus:outline-none focus:border-green-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 my-5"
                 label="Tambah Meja" onclick="toggleModal('tambah_meja')" icon="fa-solid fa-plus"/>
-            
+                @endif
                 <div class="rounded-lg">
                     <table class="w-full whitespace-nowrap" id="table_meja">
                         <thead>
@@ -33,6 +33,9 @@
                         </thead>
                         <tbody>
                             @foreach ($meja as $meja)
+                            @if ($meja->nomor_meja == 0)
+                                @continue;
+                            @endif
                             <tr class="hover:bg-slate-100 ">
                                 <x-table-column>
                                     <div class="text-center bg-orange-400 rounded-md px-6 py-4 text-white m-2 w-fit mx-auto">
@@ -52,9 +55,12 @@
                                 </x-table-column>
                                 <x-table-column>
                                     <div class="flex justify-evenly">
-                                        <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                                label="Edit" onclick="toggleModal('edit_meja{{ $loop->iteration }}')" icon="fa-solid fa-pencil"/>
-                                    
+                                        <form action="{{ route('meja.update',$meja->id) }} " method="POST">
+                                            @csrf
+                                            @method('PUT')
+                                            <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                            label="Ubah Status"  icon="fa-solid fa-pencil"/>
+                                        </form>
                                         {{-- <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                                 label="" onclick="toggleModal('')" icon="fa-solid fa-eye"/> --}}
 

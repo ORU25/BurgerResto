@@ -56,25 +56,28 @@ Route::middleware('auth')->group(function () {
     // Route::get('menu/hapus/{id}', [MenuController::class, 'hapus'])->middleware(['role:admin,staff'])->name('menu.hapus');
 
     Route::get('meja', [MejaController::class, 'index'])->middleware(['role:admin,kasir,pegawai'])->name('meja.index');
-    Route::post('meja/store', [MejaController::class, 'store'])->middleware(['role:admin,kasir,pegawai'])->name('meja.store');
+    Route::post('meja/store', [MejaController::class, 'store'])->middleware(['role:admin'])->name('meja.store');
     Route::put('meja/{id}', [MejaController::class, 'update'])->middleware(['role:admin,kasir,pegawai'])->name('meja.update');
     Route::delete('meja/{id}', [MejaController::class, 'destroy'])->middleware(['role:admin,kasir,pegawai'])->name('meja.delete');
 
     Route::get('pesanan', [PesananController::class, 'index'])->middleware(['role:admin,kasir,pegawai'])->name('pesanan.index');
-    Route::post('pesanan/store', [PesananController::class, 'store'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.store');
+    Route::post('pesanan/store', [PesananController::class, 'store'])->middleware(['role:admin,kasir,customer'])->name('pesanan.store');
     Route::put('pesanan/{id}', [PesananController::class, 'update'])->middleware(['role:admin,kasir,pegawai'])->name('pesanan.update');
-    Route::delete('pesanan/{id}', [PesananController::class, 'destroy'])->middleware(['role:admin,kasir,pegawai'])->name('pesanan.delete');
+    Route::delete('pesanan/{id}', [PesananController::class, 'destroy'])->middleware(['role:admin,kasir,'])->name('pesanan.delete');
 
     Route::get('pembayaran', [PembayaranController::class, 'index'])->middleware(['role:admin,kasir,'])->name('pembayaran.index');
     Route::post('pembayaran/store', [PembayaranController::class, 'store'])->middleware(['role:admin,kasir,'])->name('pembayaran.store');
     Route::put('pembayaran/{id}', [PembayaranController::class, 'update'])->middleware(['role:admin,kasir,'])->name('pembayaran.update');
     Route::delete('pembayaran/{id}', [PembayaranController::class, 'destroy'])->middleware(['role:admin,kasir,'])->name('pembayaran.delete');
 
-    Route::get('pembayaran/struk/{id}', [PembayaranController::class, 'struk'])->middleware(['role:admin,kasir,'])->name('print_struk');
-    
-    Route::get('pesan', [PesananController::class, 'pesan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.pesan');
-    Route::post('pesan/store', [PesananController::class, 'storePesanan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('storePesanan');
-    Route::post('pesan/struk/{id}', [PesananController::class, 'struk_pesanan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('struk_pesanan');
+    Route::get('pembayaran/struk/{id}', [PembayaranController::class, 'struk_pembayaran'])->middleware(['role:admin,kasir,'])->name('struk_pembayaran'); 
+
+    Route::get('order', [PesananController::class, 'order'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.order');
+    Route::get('order/dine_in', [PesananController::class, 'dine_in'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.dine_in');
+    Route::get('order/take_away', [PesananController::class, 'take_away'])->middleware(['role:admin,kasir,pegawai,customer'])->name('pesanan.take_away');
+    Route::post('order/dine_in/store', [PesananController::class, 'storePesananDineIn'])->middleware(['role:admin,kasir,pegawai,customer'])->name('storePesananDineIn');
+    Route::post('order/take_away/store', [PesananController::class, 'storePesananTakeAway'])->middleware(['role:admin,kasir,pegawai,customer'])->name('storePesananTakeAway');
+    Route::post('order/struk/{id}', [PesananController::class, 'struk_pesanan'])->middleware(['role:admin,kasir,pegawai,customer'])->name('struk_pesanan');
 
 });
 require __DIR__.'/auth.php';

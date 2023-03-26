@@ -20,4 +20,8 @@ class Pembayaran extends Model
     public function pesanan(){
         return $this->belongsTo('App\Models\Pesanan');
     }
+
+    public function detail_pembayaran(){
+        return $this->hasOne('App\Models\DetailPembayaran');
+    }
 }

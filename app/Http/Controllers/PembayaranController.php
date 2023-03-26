@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Pembayaran;
 use App\Models\Pesanan;
 use App\Models\DetailPesanan;
+use App\Models\DetailPembayaran;
 use App\Models\Menu;
+use Error;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Hash;
@@ -77,19 +79,37 @@ class PembayaranController extends Controller
     public function update(Request $request, $id)
     {
         $pembayaran = Pembayaran::findOrFail($id);
-        $request->validate([
-            'status' => ['required']
-        ]);
-
-        try{
-            $pembayaran= Pembayaran::find($id);
-            $pembayaran->status = $request->status;
-            $pembayaran->save();
+        $rules = [
+            
+            'tunai' => 'required|numeric|min:'.$pembayaran->total_harga,
+            
+        ];
+       
+        $messages = [
+            'tunai.required' => 'Nilai tunai harus diisi',
+            'tunai.numeric' => 'Nilai tunai harus berupa angka',
+            'tunai.min' => 'Nilai tunai harus lebih besar atau sama dengan total harga yaitu Rp ' . $pembayaran->total_harga,
+        ];
+        $validator = Validator::make($request->all(), $rules, $messages);
+        if ($validator->fails()) {
+            // logika jika validasi gagal
+            return redirect()->back()->withErrors($validator)->withInput();
+        }else{
+            try{
+                $pembayaran= Pembayaran::find($id);
+                $pembayaran->status = "paid";
+                $detail_pembayaran = new DetailPembayaran;
+                $detail_pembayaran->pembayaran_id = $pembayaran->id;
+                $detail_pembayaran->tunai = $request->tunai;
+                $detail_pembayaran->kembalian = $request->tunai - $pembayaran->total_harga;
+                $detail_pembayaran->save();
+                $pembayaran->save();
+            }
+            catch(\Exception $e){
+                return redirect()->back()->with('errors','Pembayaran Gagal');
+            }
+            return view('struk_pembayaran')->with('pembayaran',$pembayaran);
         }
-        catch(\Exception $e){
-            return redirect()->back()->with('errors','Pembayaran Gagal Diedit');
-        }
-        return redirect('pembayaran')->with('sukses','Pembayaran Berhasil Diedit');
     }
 
     /**
@@ -98,14 +118,14 @@ class PembayaranController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id) 
     {
         //
     }
 
     
-    public function struk($id){
+    public function struk_pembayaran($id){
         $pembayaran = Pembayaran::findOrFail($id);
-        return view('struk')->with('pembayaran',$pembayaran);
+        return view('struk_pembayaran')->with('pembayaran',$pembayaran);
     }
 }

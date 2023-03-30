@@ -19,7 +19,7 @@
         <div class="max-w-7xl bg-slate-100 mx-auto py-5">
             <div class="sm:mx-6 lg:mx-8 sm:px-6 lg:px-8 bg-red-300 rounded-md pb-8 pt-5">
                 
-                <x-button type="submit" class="items-center py-3 px-4 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-400 active:bg-green-600 focus:outline-none focus:border-green-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 my-5"
+                <x-button type="submit" class="items-center py-2 px-2 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-green-400 active:bg-green-600 focus:outline-none focus:border-green-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 my-5"
                 label="Tambah User" onclick="toggleModal('tambah_user')" icon="fa-solid fa-plus"/>
             
                 
@@ -46,13 +46,13 @@
                             <x-table-column>{{ $user->role }}</x-table-column>
                             <x-table-column>
                                 <div class="flex justify-evenly">
-                                    <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                    <x-button type="submit" class="items-center py-2 px-3 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                             label="Edit" onclick="toggleModal('edit_user{{ $loop->iteration }}')" icon="fa-solid fa-pencil"/>
                                    
                                     {{-- <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                             label="" onclick="toggleModal('')" icon="fa-solid fa-eye"/> --}}
 
-                                    <x-button type="submit" class="items-center py-3 px-4 bg-red-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-red-400 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                    <x-button type="submit" class="items-center py-2 px-2 bg-red-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-red-400 active:bg-red-600 focus:outline-none focus:border-red-600 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                             label="Hapus" onclick="toggleModal('hapus_user{{ $loop->iteration }}')" icon="fa-solid fa-trash"/>
                                         
                                 </div>

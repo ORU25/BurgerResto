@@ -12,7 +12,9 @@
             </div>
         @elseif(session('errors'))
             <div class="w-1/2 bg-red-500 flex flex-col items-center font-bold text-gray-200 rounded-md my-3 py-3 mx-auto">
-                {{ session('errors') }}
+                @foreach ($errors->all() as $error)
+                {{ $error }}
+             @endforeach
             </div>
         @endif
 
@@ -59,7 +61,7 @@
                                     <x-table-column>{{ $pembayaran->pesanan->created_at }}</x-table-column>
                                     <x-table-column>
                                         <div class="flex justify-center">
-                                            <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                            <x-button type="submit" class="items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                                     label="Detail" onclick="toggleModal('detail_pesanan{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>
 
                                             
@@ -83,7 +85,7 @@
                                                                 <form action="{{ route('pesanan.update',$detail->id) }} " method="POST">
                                                                     @csrf
                                                                     @method('PUT')
-                                                                    <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                                                    <x-button type="submit" class="items-center py-2 px-2 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                                                     label="Ubah Status"  icon="fa-solid fa-pencil"/>
                                                                 </form>
                                                             </div>

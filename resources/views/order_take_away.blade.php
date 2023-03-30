@@ -8,14 +8,12 @@
 <body>
     <div class="flex justify-between max-w-screen-2xl mx-auto min-h-screen">
     
-        <div class="w-1/3 bg-red-200 max-h-screen p-4">
+        <div class="w-1/3 bg-red-300 max-h-screen p-4">
             <div class="bg-white h-full shadow-lg shadow-gray-400 py-3  overflow-auto">
                 <h1  class="text-center text-black font-bold text-4xl " >PESANAN ANDA</h1>
                 <h1  class="text-center text-black font-bold text-2xl mt-5" >Bawa Pulang</h1>
                 <div class="grid grid-rows-1 my-4 mx-4"> 
-                    <div class="flex items-center justify-start py-6 px-2 ">
-                        <a href="{{ route('pesanan.order') }}" class="tracking-widest bg-blue-600 hover:bg-blue-400 text-white active:bg-blue-700  uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-left-long">&nbsp;Kembali</a>
-                    </div>
+                    
                     <form action="{{ route('storePesananTakeAway') }}" method="POST" id="tambah_pesan" >
                         @csrf
                        
@@ -49,7 +47,9 @@
                             type="submit">
                                 &nbsp;Pesan
                             </button>
-                           
+                        </div>
+                        <div class="flex items-center justify-start  px-2 ">
+                            <a href="{{ route('pesanan.order') }}" class="tracking-widest bg-blue-600 hover:bg-blue-400 text-white active:bg-blue-700  uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-left-long">&nbsp;Kembali</a>
                         </div>
                     </form> 
                    
@@ -66,7 +66,7 @@
             </div>
         </div>
 
-        <div class="w-2/3 bg-red-200  overflow-auto max-h-screen">
+        <div class="w-2/3 bg-red-300  overflow-auto max-h-screen">
             <div id="animation-carousel" class="relative mx-4 my-4" data-carousel="static">
                 <!-- Carousel wrapper -->
                 <div class="relative h-56 overflow-hidden md:h-96">
@@ -106,14 +106,16 @@
             <div class="grid grid-cols-2" id="menu-list">
                 @foreach ($kategori as $kategori2)
                     @foreach($kategori2->menu as $menu)
-                        <div href="#" class="flex justify-center rounded-md m-4  px-2 py-5 bg-white border border-gray-300 shadow-md shadow-gray-300 hover:bg-gray-200 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300" data-kategori-id="{{ $menu->kategori_id }}">
+                    <button type="button" onclick="addMenu('{{ $menu->nama }}','{{ $menu->id }}','{{ $menu->harga }}')" class="hover:bg-white hover:bg-opacity-20 rounded-lg" data-kategori-id="{{ $menu->kategori_id }}">
+                        <div href="#" class="flex justify-center rounded-md m-4  px-2 py-5 bg-white border border-gray-300 shadow-md shadow-gray-300  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300" >
                             <img class="object-cover w-full rounded-t-lg h-96 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('foto_menu/'.$menu->gambar) }}" alt="" />
                             <div class="bg-white p-5 ">
-                                <h5 class="bg-white text-2xl font-bold tracking-tight text-gray-900 dark:text-white ">{{ $menu->nama }}</h5>
-                                <h6 class="bg-white mb-3 text-xl font-bold tracking-tight text-gray-900 dark:text-white">Rp{{ number_format($menu->harga, 2,",",".") }}</h6>
-                                <button type="button" onclick="addMenu('{{ $menu->nama }}','{{ $menu->id }}','{{ $menu->harga }}')" class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pesan</button>
+                                <h5 class="bg-white mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-left">{{ $menu->nama }}</h5>
+                                <h6 class="bg-white text-xl font-bold tracking-tight text-gray-900 dark:text-white text-left">Rp{{ number_format($menu->harga, 2,",",".") }}</h6>
+                                {{-- <button type="button" onclick="addMenu('{{ $menu->nama }}','{{ $menu->id }}','{{ $menu->harga }}')" class="inline-flex items-center px-6 py-4 text-sm font-medium text-center uppercase text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pesan</button> --}}
                             </div>
                         </div>
+                    </button>
                     @endforeach
                 @endforeach
             </div>
@@ -239,9 +241,9 @@
 
         for (var i = 0; i < menuList.length; i++) {
             if (kategoriId == 0) {
-                menuList[i].style.display = 'flex';
+                menuList[i].style.display = 'grid';
             } else if (menuList[i].getAttribute('data-kategori-id') == kategoriId) {
-                menuList[i].style.display = 'flex';
+                menuList[i].style.display = 'grid';
             } else {
                 menuList[i].style.display = 'none';
             }

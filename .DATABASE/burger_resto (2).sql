@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 26, 2023 at 03:56 PM
+-- Generation Time: Mar 30, 2023 at 03:54 PM
 -- Server version: 10.4.24-MariaDB
 -- PHP Version: 8.1.6
 
@@ -68,7 +68,9 @@ INSERT INTO `dtail_pesanan` (`pesanan_id`, `menu_id`, `jumlah`, `status`, `creat
 (137, 9, 1, 'proses', '2023-03-26 05:42:33', '2023-03-26 05:42:33', 197),
 (137, 13, 1, 'proses', '2023-03-26 05:42:33', '2023-03-26 05:42:33', 198),
 (138, 3, 1, 'proses', '2023-03-26 05:43:03', '2023-03-26 05:43:03', 199),
-(138, 14, 1, 'proses', '2023-03-26 05:43:03', '2023-03-26 05:43:03', 200);
+(138, 14, 1, 'proses', '2023-03-26 05:43:03', '2023-03-26 05:43:03', 200),
+(139, 12, 1, 'proses', '2023-03-27 17:50:35', '2023-03-27 17:50:35', 201),
+(140, 13, 1, 'proses', '2023-03-27 17:53:00', '2023-03-27 17:53:00', 202);
 
 -- --------------------------------------------------------
 
@@ -106,7 +108,9 @@ CREATE TABLE `kategori` (
 INSERT INTO `kategori` (`id`, `nama_kategori`, `created_at`, `updated_at`) VALUES
 (1, 'Burger', '2023-01-17 17:21:27', '2023-01-17 17:50:47'),
 (3, 'Minuman', '2023-01-17 17:55:13', '2023-01-17 17:55:13'),
-(4, 'Kebab', '2023-01-18 15:41:27', '2023-01-18 15:41:27');
+(4, 'Kebab', '2023-01-18 15:41:27', '2023-01-18 15:41:27'),
+(6, 'Appetizer', '2023-03-29 18:49:41', '2023-03-29 18:49:41'),
+(7, 'Dessert', '2023-03-29 19:04:54', '2023-03-29 19:04:54');
 
 -- --------------------------------------------------------
 
@@ -128,7 +132,7 @@ CREATE TABLE `meja` (
 
 INSERT INTO `meja` (`status`, `created_at`, `updated_at`, `id`, `nomor_meja`) VALUES
 ('used', '2023-01-31 17:30:24', '2023-03-26 05:42:33', 1, 1),
-('ready', '2023-01-31 17:30:37', '2023-03-26 05:37:18', 2, 2),
+('used', '2023-01-31 17:30:37', '2023-03-27 17:53:00', 2, 2),
 ('ready', '2023-01-31 17:30:40', '2023-03-26 05:37:19', 3, 3),
 ('ready', '2023-01-31 17:30:43', '2023-03-26 05:37:19', 4, 4),
 ('ready', '2023-01-31 17:30:46', '2023-03-26 05:37:20', 5, 5),
@@ -163,10 +167,19 @@ CREATE TABLE `menu` (
 
 INSERT INTO `menu` (`id`, `nama`, `kategori_id`, `gambar`, `harga`, `stok`, `status`, `created_at`, `updated_at`) VALUES
 (3, 'Chicken Burger', 1, 'BurgerAyam.jpg', 25000.00, 113, 'ready', '2023-01-18 18:19:46', '2023-03-26 05:43:03'),
-(9, 'Double Beef Burger', 1, 'Double Burger.jpeg', 35000.00, 166, 'ready', '2023-01-29 21:37:59', '2023-03-26 05:42:33'),
-(12, 'Kebab Beef', 4, 'KebabBeef.jpg', 42000.00, 149, 'ready', '2023-01-30 15:44:24', '2023-03-26 05:32:52'),
-(13, 'Coke', 3, 'Coke.jpg', 12000.00, 178, 'ready', '2023-01-30 15:50:54', '2023-03-26 05:42:33'),
-(14, 'Ice Lemon Tea', 3, 'ice lemon tea.jpeg', 15000.00, 75, 'ready', '2023-02-15 17:43:45', '2023-03-26 05:43:03');
+(9, 'Double Beef Burger', 1, 'Double Burger.jpeg', 40000.00, 166, 'ready', '2023-01-29 21:37:59', '2023-03-29 18:35:19'),
+(12, 'Kebab Beef', 4, 'KebabBeef.jpg', 42000.00, 148, 'ready', '2023-01-30 15:44:24', '2023-03-27 17:50:35'),
+(13, 'Coke', 3, 'Coke.jpg', 12000.00, 177, 'ready', '2023-01-30 15:50:54', '2023-03-27 17:53:00'),
+(14, 'Iced Lemon Tea', 3, 'ice lemon tea.jpeg', 15000.00, 75, 'ready', '2023-02-15 17:43:45', '2023-03-29 18:48:13'),
+(15, 'Beef Burger', 1, 'BeefBurger.jpg', 30000.00, 121, 'ready', '2023-03-29 18:32:20', '2023-03-29 18:32:33'),
+(16, 'Chicken Mozza Burger', 1, 'Mozza Chicken Burger.jpeg', 35000.00, 110, 'ready', '2023-03-29 18:35:09', '2023-03-29 18:35:09'),
+(17, 'Hot Coffee Latte', 3, 'istockphoto-1174632449-612x612.jpg', 17000.00, 210, 'ready', '2023-03-29 18:40:00', '2023-03-29 18:40:12'),
+(18, 'Iced Coffee Latte', 3, 'iced latte with swirl.jpg', 19000.00, 219, 'ready', '2023-03-29 18:41:41', '2023-03-29 18:41:41'),
+(20, 'French Fries', 6, 'download (4).jpg', 14000.00, 210, 'ready', '2023-03-29 18:56:48', '2023-03-29 18:56:48'),
+(21, 'quesadilla', 6, 'istockphoto-155282105-170667a.jpg', 18000.00, 180, 'ready', '2023-03-29 18:58:37', '2023-03-29 18:58:37'),
+(22, 'Onion Rings', 6, 'istockphoto-153897379-170667a.jpg', 14000.00, 178, 'ready', '2023-03-29 18:59:46', '2023-03-29 18:59:46'),
+(24, 'Chocolate Brownies', 7, 'istockphoto-155598375-170667a.jpg', 19000.00, 91, 'ready', '2023-03-29 19:11:33', '2023-03-29 19:17:56'),
+(25, 'Waffle Ice Cream', 7, 'istockphoto-480061023-612x612.jpg', 18000.00, 98, 'ready', '2023-03-29 19:18:26', '2023-03-29 19:18:26');
 
 -- --------------------------------------------------------
 
@@ -242,7 +255,9 @@ CREATE TABLE `pembayaran` (
 
 INSERT INTO `pembayaran` (`id`, `pesanan_id`, `total_harga`, `status`, `created_at`, `updated_at`) VALUES
 (110, 137, 47000.00, 'paid', '2023-03-26 05:42:33', '2023-03-26 05:43:24'),
-(111, 138, 40000.00, 'paid', '2023-03-26 05:43:03', '2023-03-26 05:47:48');
+(111, 138, 40000.00, 'paid', '2023-03-26 05:43:03', '2023-03-26 05:47:48'),
+(112, 139, 42000.00, 'unpaid', '2023-03-27 17:50:36', '2023-03-27 17:50:36'),
+(113, 140, 12000.00, 'unpaid', '2023-03-27 17:53:00', '2023-03-27 17:53:00');
 
 -- --------------------------------------------------------
 
@@ -283,7 +298,9 @@ CREATE TABLE `pesanan` (
 
 INSERT INTO `pesanan` (`id`, `user_id`, `meja_id`, `created_at`, `updated_at`) VALUES
 (137, 1, 1, '2023-03-26 05:42:33', '2023-03-26 05:42:33'),
-(138, 1, 11, '2023-03-26 05:43:03', '2023-03-26 05:43:03');
+(138, 1, 11, '2023-03-26 05:43:03', '2023-03-26 05:43:03'),
+(139, 1, 11, '2023-03-27 17:50:35', '2023-03-27 17:50:35'),
+(140, 1, 2, '2023-03-27 17:53:00', '2023-03-27 17:53:00');
 
 -- --------------------------------------------------------
 
@@ -418,7 +435,7 @@ ALTER TABLE `detail_pembayaran`
 -- AUTO_INCREMENT for table `dtail_pesanan`
 --
 ALTER TABLE `dtail_pesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=201;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=203;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -430,7 +447,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `meja`
@@ -442,7 +459,7 @@ ALTER TABLE `meja`
 -- AUTO_INCREMENT for table `menu`
 --
 ALTER TABLE `menu`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `migrations`
@@ -454,7 +471,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `pembayaran`
 --
 ALTER TABLE `pembayaran`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=112;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=114;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
@@ -466,7 +483,7 @@ ALTER TABLE `personal_access_tokens`
 -- AUTO_INCREMENT for table `pesanan`
 --
 ALTER TABLE `pesanan`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=139;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=141;
 
 --
 -- AUTO_INCREMENT for table `users`

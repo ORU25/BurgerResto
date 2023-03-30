@@ -28,6 +28,7 @@
                         <x-table-column>No Pesanan</x-table-column>
                         <x-table-column>Status Pesanan</x-table-column>
                         <x-table-column>Total Harga</x-table-column>
+                        <x-table-column>Tanggal</x-table-column>
                         <x-table-column>Status</x-table-column>
                         <x-table-column>Aksi</x-table-column>
                     </x-slot>
@@ -39,22 +40,25 @@
                                 </div>
                             </x-table-column>
                             <x-table-column>
-                                <div class="flex justify-center">
                                     @if ($pembayaran->pesanan->meja->nomor_meja == 0)
                                         Take Away
                                     @else
                                         Dine In
                                     @endif
-                                </div>
                             </x-table-column>
-                            <x-table-column>Rp{{ number_format($pembayaran->total_harga, 2,",",".") }}</x-table-column>
+                            <x-table-column>
+                                Rp{{ number_format($pembayaran->total_harga, 2,",",".") }}
+                            </x-table-column>
+                            <x-table-column>
+                                {{ $pembayaran->pesanan->created_at}}
+                            </x-table-column>
                             <x-table-column>
                                 @if ($pembayaran->status == "paid")
-                                    <div class=" flex justify-center text-center items-center p-4 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase mx-8 ">
+                                    <div class=" flex justify-center text-center items-center py-2 px-2 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase mx-8 ">
                                         {{ $pembayaran->status }}
                                     </div>
                                 @else
-                                    <div class=" flex justify-center text-center items-center p-4 bg-red-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase mx-8 ">
+                                    <div class=" flex justify-center text-center items-center py-2 px-2 bg-red-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase mx-8 ">
                                         {{ $pembayaran->status }}
                                     </div>
                                 @endif
@@ -62,19 +66,19 @@
                             <x-table-column>
                                 <div class="flex justify-evenly">
                                     @if ($pembayaran->status == "unpaid")
-                                        <x-button type="submit" class="items-center py-3 px-4 bg-red-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-red-400 active:bg-red-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                        <x-button type="submit" class="items-center py-2 px-2 bg-red-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-red-400 active:bg-red-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                             label="Batal" onclick="toggleModal('hapus_pesanan{{ $loop->iteration }}')" icon="fa-solid fa-trash"/>
-                                        <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                        <x-button type="submit" class="items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                                 label="Detail" onclick="toggleModal('detail_pembayaran{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>    
-                                        <x-button type="submit" class="items-center py-3 px-4 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                        <x-button type="submit" class="items-center py-2 px-2 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                                 label="Bayar" onclick="toggleModal('edit_pembayaran{{ $loop->iteration }}')" icon="fa-solid fa-receipt"/>
                                     @endif
                                     @if ($pembayaran->status == "paid")
-                                        <x-button type="submit" class="items-center py-3 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                        <x-button type="submit" class="items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
                                         label="Detail" onclick="toggleModal('detail_pembayaran{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>    
 
                                         <x-nav-button :href="route('struk_pembayaran',$pembayaran->id)" id="print{{ $loop->iteration }}" 
-                                            class="items-center py-3 px-4 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-green-400 active:bg-green-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" 
+                                            class="items-center py-2 px-2 bg-green-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-green-400 active:bg-green-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150" 
                                             icon="fa-solid fa-print" label="struk" />
                                     @endif
                                     
@@ -109,7 +113,7 @@
                                             <x-input-error :messages="$errors->get('tunai')" class="mt-2" />
                                             @endif
                                             <div>
-                                                <button type="button" onclick="kembalian('{{ $pembayaran->total_harga }}','{{ $loop->iteration }}')" class="mt-5 tracking-widest bg-green-600 hover:bg-green-400 text-white active:bg-green-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-check">
+                                                <button type="button" onclick="kembalian('{{ $pembayaran->total_harga }}','{{ $loop->iteration }}')" class=" mt-5 tracking-widest bg-green-600 hover:bg-green-400 text-white active:bg-green-700 font-bold  text-sm px-3 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-check">
                                                     &nbsp; Cek Kembalian
                                                 </button>
                                             </div>
@@ -149,7 +153,17 @@
                                         </tr>
                                         <tr>
                                             <td class="pr-3">No Meja</td>
-                                            <td>: {{ $pembayaran->pesanan->meja->nomor_meja }}</td>
+                                            <td>: 
+                                                @if ($pembayaran->pesanan->meja->nomor_meja == 0)
+                                                take away
+                                                @else
+                                                {{ $pembayaran->pesanan->meja->nomor_meja }}
+                                                @endif
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="pr-3">Tanggal</td>
+                                            <td>: {{ $pembayaran->pesanan->created_at }}</td>
                                         </tr>
                                     </table>
                                     

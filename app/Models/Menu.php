@@ -21,7 +21,7 @@ class Menu extends Model
     ];
 
     public function kategori(){
-        return $this->belongsTo('App\Models\Kategori');
+        return $this->belongsTo('App\Models\Kategori');;
     }
 
     public function detail_pesanan(){

@@ -26,7 +26,7 @@ class PesananController extends Controller
         
         $meja = Meja::all();
         $menu = Menu::all();
-        $pembayaran = Pembayaran::all();
+        $pembayaran = Pembayaran::orderBy('pesanan_id', 'desc')->get();
         return view('pesanan.index')->with('meja',$meja)->with('menu',$menu)->with('pembayaran',$pembayaran);
     }
 

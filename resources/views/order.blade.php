@@ -3,6 +3,7 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="{{ asset('image/logo_BR.png') }}" type="image/x-icon"/>
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
         <title>{{ config('app.name', 'Laravel') }}</title>
@@ -24,11 +25,11 @@
                     <h5 class="mx-10 text-xl font-bold tracking-tight text-gray-800 text-center">Pilih Makan Di Tempat atau Bawa Pulang ?</h5>
                 </div>
                 <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 flex ">
-                    <a href="{{ route('pesanan.dine_in') }}" class="mx-5 my-10 w-52 py-14 bg-orange-300 border border-gray-200 rounded-lg shadow hover:bg-orange-200 ">
+                    <a href="{{ route('pesanan.dine_in') }}" class="mx-5 my-10 w-52 py-12 bg-white border-8 border-orange-300 rounded-lg shadow hover:bg-orange-300 ">
                         <h5 class=" text-5xl font-bold tracking-tight text-gray-800  fa-solid fa-utensils flex justify-center mb-3"></h5>
                         <h5 class=" text-xl font-bold tracking-tight text-gray-800 text-center">Makan Di Tempat</h5>
                     </a>
-                    <a href="{{ route('pesanan.take_away') }}" class="mx-5 my-10 w-52 py-14 bg-orange-300 border border-gray-200 rounded-lg shadow hover:bg-orange-200 ">
+                    <a href="{{ route('pesanan.take_away') }}" class="mx-5 my-10 w-52 py-12 bg-white border-8 border-orange-300 rounded-lg shadow hover:bg-orange-300 ">
                         <h5 class=" text-5xl font-bold tracking-tight text-gray-800  fa-solid fa-bag-shopping flex justify-center mb-3"></h5>
                         <h5 class=" text-xl font-bold tracking-tight text-gray-800 text-center">Bawa Pulang</h5>
                     </a>

@@ -25,6 +25,7 @@
                 label="Tambah Pesanan" onclick="toggleModal('tambah_pesanan')" icon="fa-solid fa-plus"/>
                 @endif --}}
                 
+                <div class="text-xl mb-3 font-semibold">Belum Selesai</div>
 
                 <x-table id="table_pesanan">
                     <x-slot name="header">
@@ -35,30 +36,30 @@
                         <x-table-column>Aksi</x-table-column>
                     </x-slot>
                     
-                    @foreach ($pembayaran as $pembayaran)
-                        @if ($pembayaran->status == "paid") 
-                            @if ($pembayaran->pesanan->detail_pesanan->pluck('status')->contains('proses'))
+                    @foreach ($pembayaran as $pembayaran1)
+                        @if ($pembayaran1->status == "paid") 
+                            @if ($pembayaran1->pesanan->detail_pesanan->pluck('status')->contains('proses'))
                                 <tr class="hover:bg-slate-100 ">
 
 
                                     <x-table-column>
                                         <div class="text-center">
-                                            {{ $pembayaran->pesanan->id }}
+                                            {{ $pembayaran1->pesanan->id }}
                                         </div>
                                     </x-table-column>
-                                    <x-table-column>{{ $pembayaran->pesanan->user->username }}</x-table-column>
+                                    <x-table-column>{{ $pembayaran1->pesanan->user->username }}</x-table-column>
                                     <x-table-column>
-                                        @if ($pembayaran->pesanan->meja->nomor_meja == 0)
+                                        @if ($pembayaran1->pesanan->meja->nomor_meja == 0)
                                             <div class="text-center">
                                                 Take Away
                                             </div>
                                         @else
                                             <div class="text-center">
-                                                {{ $pembayaran->pesanan->meja->nomor_meja }}
+                                                {{ $pembayaran1->pesanan->meja->nomor_meja }}
                                             </div>
                                         @endif
                                     </x-table-column>
-                                    <x-table-column>{{ $pembayaran->pesanan->created_at }}</x-table-column>
+                                    <x-table-column>{{ $pembayaran1->pesanan->created_at }}</x-table-column>
                                     <x-table-column>
                                         <div class="flex justify-center">
                                             <x-button type="submit" class="items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
@@ -75,7 +76,7 @@
                                                     <x-table-column>Status</x-table-column>
                                                     <x-table-column>Aksi</x-table-column>
                                                 </x-slot>
-                                                @foreach ($pembayaran->pesanan->detail_pesanan as $detail)
+                                                @foreach ($pembayaran1->pesanan->detail_pesanan as $detail)
                                                     <tr>
                                                         <x-table-column>{{ $detail->menu->nama }}</x-table-column>
                                                         <x-table-column>{{ $detail->jumlah }}</x-table-column>
@@ -90,6 +91,73 @@
                                                                 </form>
                                                             </div>
                                                         </x-table-column>
+                                                    </tr>
+                                                @endforeach
+                                            </x-table>
+                                        </x-modal_view>
+            
+                                        
+                                    </x-table-column>
+                                </tr>
+                            @endif
+                        @endif
+                    @endforeach
+                </x-table>
+                <div class="text-xl my-3 font-semibold">Selesai</div>
+                <x-table id="table_pesanan">
+                    <x-slot name="header">
+                        <x-table-column>No Pesanan</x-table-column>
+                        <x-table-column>Kasir</x-table-column>
+                        <x-table-column>No Meja</x-table-column>
+                        <x-table-column>Tanggal</x-table-column>
+                        <x-table-column>Aksi</x-table-column>
+                    </x-slot>
+                    
+                    @foreach ($pembayaran as $pembayaran2)
+                        @if ($pembayaran2->status == "paid") 
+                            @if (!$pembayaran2->pesanan->detail_pesanan->pluck('status')->contains('proses'))
+                                <tr class="hover:bg-slate-100 ">
+
+
+                                    <x-table-column>
+                                        <div class="text-center">
+                                            {{ $pembayaran2->pesanan->id }}
+                                        </div>
+                                    </x-table-column>
+                                    <x-table-column>{{ $pembayaran2->pesanan->user->username }}</x-table-column>
+                                    <x-table-column>
+                                        @if ($pembayaran2->pesanan->meja->nomor_meja == 0)
+                                            <div class="text-center">
+                                                Take Away
+                                            </div>
+                                        @else
+                                            <div class="text-center">
+                                                {{ $pembayaran2->pesanan->meja->nomor_meja }}
+                                            </div>
+                                        @endif
+                                    </x-table-column>
+                                    <x-table-column>{{ $pembayaran2->pesanan->created_at }}</x-table-column>
+                                    <x-table-column>
+                                        <div class="flex justify-center">
+                                            <x-button type="submit" class="items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                                    label="Detail" onclick="toggleModal('detail_pesanan{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>
+
+                                            
+                                        </div>
+                                        
+                                        <x-modal_view id="detail_pesanan{{ $loop->iteration }}" title="Detail Pesanan No {{ $loop->iteration }}" form="false">
+                                            <x-table id="tabel_detail_pesanan">
+                                                <x-slot name="header">
+                                                    <x-table-column>Menu</x-table-column>
+                                                    <x-table-column>Jumlah</x-table-column>
+                                                    <x-table-column>Status</x-table-column>
+                                                </x-slot>
+                                                @foreach ($pembayaran2->pesanan->detail_pesanan as $detail)
+                                                    <tr>
+                                                        <x-table-column>{{ $detail->menu->nama }}</x-table-column>
+                                                        <x-table-column>{{ $detail->jumlah }}</x-table-column>
+                                                        <x-table-column>{{ $detail->status }}</x-table-column>
+                                                        
                                                     </tr>
                                                 @endforeach
                                             </x-table>

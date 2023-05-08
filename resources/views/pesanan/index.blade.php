@@ -25,7 +25,7 @@
                 label="Tambah Pesanan" onclick="toggleModal('tambah_pesanan')" icon="fa-solid fa-plus"/>
                 @endif --}}
                 
-                <div class="text-xl mb-3 font-semibold">Belum Selesai</div>
+                <div class="text-xl mb-3 font-semibold text-gray-800">Belum Selesai</div>
 
                 <x-table id="table_pesanan">
                     <x-slot name="header">
@@ -62,40 +62,65 @@
                                     <x-table-column>{{ $pembayaran1->pesanan->created_at }}</x-table-column>
                                     <x-table-column>
                                         <div class="flex justify-center">
-                                            <x-button type="submit" class="items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                                    label="Detail" onclick="toggleModal('detail_pesanan{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>
-
-                                            
+                                            <button data-modal-target="detail_pesanan{{ $loop->iteration }}" data-modal-toggle="detail_pesanan{{ $loop->iteration }}" class="mx-2 items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"" type="button">
+                                                <i class="fa-solid fa-eye"></i>
+                                                Detail
+                                            </button>
                                         </div>
                                         
-                                        <x-modal_view id="detail_pesanan{{ $loop->iteration }}" title="Detail Pesanan No {{ $loop->iteration }}" form="false">
-                                            <x-table id="tabel_detail_pesanan">
-                                                <x-slot name="header">
-                                                    <x-table-column>Menu</x-table-column>
-                                                    <x-table-column>Jumlah</x-table-column>
-                                                    <x-table-column>Status</x-table-column>
-                                                    <x-table-column>Aksi</x-table-column>
-                                                </x-slot>
-                                                @foreach ($pembayaran1->pesanan->detail_pesanan as $detail)
-                                                    <tr>
-                                                        <x-table-column>{{ $detail->menu->nama }}</x-table-column>
-                                                        <x-table-column>{{ $detail->jumlah }}</x-table-column>
-                                                        <x-table-column>{{ $detail->status }}</x-table-column>
-                                                        <x-table-column>
-                                                            <div class="flex justify-center">
-                                                                <form action="{{ route('pesanan.update',$detail->id) }} " method="POST">
-                                                                    @csrf
-                                                                    @method('PUT')
-                                                                    <x-button type="submit" class="items-center py-2 px-2 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                                                    label="Ubah Status"  icon="fa-solid fa-pencil"/>
-                                                                </form>
-                                                            </div>
-                                                        </x-table-column>
-                                                    </tr>
-                                                @endforeach
-                                            </x-table>
-                                        </x-modal_view>
-            
+                                    <div id="detail_pesanan{{ $loop->iteration }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                        <div class="relative w-full max-w-2xl max-h-full">
+                                            <!-- Modal content -->
+                                            <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                <!-- Modal header -->
+                                                <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                                    <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                        Detail Pesanan No {{ $pembayaran1->pesanan_id }}
+                                                    </h3>
+                                                    <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail_pesanan{{ $loop->iteration }}">
+                                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                        <span class="sr-only">Close modal</span>
+                                                    </button>
+                                                </div>
+                                                <!-- Modal body -->
+                                                <div class="p-6 space-y-6">
+                                                    <x-table id="tabel_detail_pesanan">
+                                                        <x-slot name="header">
+                                                            <x-table-column>Menu</x-table-column>
+                                                            <x-table-column>Jumlah</x-table-column>
+                                                            <x-table-column>Status</x-table-column>
+                                                            <x-table-column>Aksi</x-table-column>
+                                                        </x-slot>
+                                                        @foreach ($pembayaran1->pesanan->detail_pesanan as $detail)
+                                                            <tr>
+                                                                <x-table-column>{{ $detail->menu->nama }}</x-table-column>
+                                                                <x-table-column>{{ $detail->jumlah }}</x-table-column>
+                                                                <x-table-column>{{ $detail->status }}</x-table-column>
+                                                                <x-table-column>
+                                                                    <div class="flex justify-center">
+                                                                        <form action="{{ route('pesanan.update',$detail->id) }} " method="POST">
+                                                                            @csrf
+                                                                            @method('PUT')
+                                                                            <x-button type="submit" class="items-center py-2 px-2 bg-blue-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-blue-400 active:bg-blue-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
+                                                                            label="Ubah Status"  icon="fa-solid fa-pencil"/>
+                                                                        </form>
+                                                                    </div>
+                                                                </x-table-column>
+                                                            </tr>
+                                                        @endforeach
+                                                    </x-table>
+                                                        <!-- Modal footer -->
+                                                        <div class="flex items-center pt-6 mt-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                            <button data-modal-hide="detail_pesanan{{ $loop->iteration }}" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Tutup</button>
+                                                           
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+
                                         
                                     </x-table-column>
                                 </tr>
@@ -103,8 +128,9 @@
                         @endif
                     @endforeach
                 </x-table>
-                <div class="text-xl my-3 font-semibold">Selesai</div>
-                <x-table id="table_pesanan">
+                <div class="text-xl my-3 font-semibold text-gray-800">Selesai</div>
+
+                <x-table id="table_pesanan2">
                     <x-slot name="header">
                         <x-table-column>No Pesanan</x-table-column>
                         <x-table-column>Kasir</x-table-column>
@@ -139,29 +165,56 @@
                                     <x-table-column>{{ $pembayaran2->pesanan->created_at }}</x-table-column>
                                     <x-table-column>
                                         <div class="flex justify-center">
-                                            <x-button type="submit" class="items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"
-                                                    label="Detail" onclick="toggleModal('detail_pesanan{{ $loop->iteration }}')" icon="fa-solid fa-eye"/>
-
+                                            <button data-modal-target="detail_pesanan_done{{ $loop->iteration }}" data-modal-toggle="detail_pesanan_done{{ $loop->iteration }}" class="mx-2 items-center py-2 px-2 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150"" type="button">
+                                                <i class="fa-solid fa-eye"></i>
+                                                Detail
+                                            </button>
                                             
                                         </div>
                                         
-                                        <x-modal_view id="detail_pesanan{{ $loop->iteration }}" title="Detail Pesanan No {{ $loop->iteration }}" form="false">
-                                            <x-table id="tabel_detail_pesanan">
-                                                <x-slot name="header">
-                                                    <x-table-column>Menu</x-table-column>
-                                                    <x-table-column>Jumlah</x-table-column>
-                                                    <x-table-column>Status</x-table-column>
-                                                </x-slot>
-                                                @foreach ($pembayaran2->pesanan->detail_pesanan as $detail)
-                                                    <tr>
-                                                        <x-table-column>{{ $detail->menu->nama }}</x-table-column>
-                                                        <x-table-column>{{ $detail->jumlah }}</x-table-column>
-                                                        <x-table-column>{{ $detail->status }}</x-table-column>
-                                                        
-                                                    </tr>
-                                                @endforeach
-                                            </x-table>
-                                        </x-modal_view>
+                                        <div id="detail_pesanan_done{{ $loop->iteration }}" tabindex="-1" aria-hidden="true" class="fixed top-0 left-0 right-0 z-50 hidden w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                                            <div class="relative w-full max-w-2xl max-h-full">
+                                                <!-- Modal content -->
+                                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                                    <!-- Modal header -->
+                                                    <div class="flex items-start justify-between p-4 border-b rounded-t dark:border-gray-600">
+                                                        <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+                                                            Detail Pesanan No {{ $pembayaran2->pesanan_id }}
+                                                        </h3>
+                                                        <button type="button" class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white" data-modal-hide="detail_pesanan_done{{ $loop->iteration }}">
+                                                            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                                            <span class="sr-only">Close modal</span>
+                                                        </button>
+                                                    </div>
+                                                    <!-- Modal body -->
+                                                    <div class="p-6 space-y-6">
+                                                        <x-table id="tabel_detail_pesanan">
+                                                            <x-slot name="header">
+                                                                <x-table-column>Menu</x-table-column>
+                                                                <x-table-column>Jumlah</x-table-column>
+                                                                <x-table-column>Status</x-table-column>
+                                                                
+                                                            </x-slot>
+                                                            @foreach ($pembayaran2->pesanan->detail_pesanan as $detail)
+                                                                <tr>
+                                                                    <x-table-column>{{ $detail->menu->nama }}</x-table-column>
+                                                                    <x-table-column>{{ $detail->jumlah }}</x-table-column>
+                                                                    <x-table-column>{{ $detail->status }}</x-table-column>
+                                                                    
+                                                                </tr>
+                                                            @endforeach
+                                                        </x-table>
+                                                            <!-- Modal footer -->
+                                                            <div class="flex items-center pt-6 mt-4 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">
+                                                                <button data-modal-hide="detail_pesanan_done{{ $loop->iteration }}" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">Tutup</button>
+                                                               
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                
+                                                </div>
+                                            </div>
+                                        </div>
             
                                         
                                     </x-table-column>

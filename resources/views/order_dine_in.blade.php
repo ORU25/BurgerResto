@@ -6,10 +6,10 @@
     <link rel="shortcut icon" href="{{ asset('image/logo_BR.png') }}" type="image/x-icon"/>
     <title>Burger Resto</title>
 </head>
-<body>
-    <div class="flex justify-between max-w-screen-2xl mx-auto min-h-screen">
+<body class="bg-red-300">
+    <div class="flex justify-between max-w-screen-2xl mx-auto min-h-screen ">
     
-        <div class="w-1/3 bg-red-300 max-h-screen p-4">
+        <div class="w-1/3 bg-red-300 max-h-screen p-4 ">
             <div class="bg-white h-full shadow-lg shadow-gray-400 py-3  overflow-auto">
                 <h1  class="text-center text-black font-bold text-4xl " >PESANAN ANDA</h1>
                 <h1  class="text-center text-black font-bold text-2xl mt-5" >Makan Di Tempat</h1>
@@ -58,13 +58,42 @@
                         </div>
                         
                         <div class="flex items-center justify-left py-6 px-2 border-t border-solid border-slate-200 rounded-b">
-                            <button class="tracking-widest bg-green-600 hover:bg-green-400 text-white active:bg-green-700 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-plus"
+                            {{-- <button class="tracking-widest bg-green-600 hover:bg-green-400 text-white active:bg-green-700 font-bold  text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-plus"
                             type="submit">
                                 &nbsp;Pesan
+                            </button> --}}
+                             <!-- Modal toggle -->
+                             <button data-modal-target="popup-modal" data-modal-toggle="popup-modal" class="tracking-widest bg-green-600 hover:bg-green-400 text-white active:bg-green-700 font-bold text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 " type="button">
+                                <i class="fa-solid fa-plus"></i>
+                                Pesan
                             </button>
                         </div>
                         <div class="flex items-center justify-start px-2 ">
-                            <a href="{{ route('pesanan.order') }}" class="tracking-widest bg-blue-600 hover:bg-blue-400 text-white active:bg-blue-700  uppercase text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 fa-solid fa-left-long">&nbsp;Kembali</a>
+                            <a href="{{ route('pesanan.order') }}" class="tracking-widest bg-blue-600 hover:bg-blue-400 text-white active:bg-blue-700   text-sm px-4 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 ">
+                                <i class="fa-solid fa-left-long"></i>
+                                &nbsp;Kembali
+                            </a>
+                        </div>
+
+                        <div id="popup-modal" tabindex="-1" class="fixed top-0 left-0 right-0 z-50 hidden p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full">
+                            <div class="relative w-full max-w-md max-h-full">
+                                <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+                                    <button type="button" class="absolute top-3 right-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-800 dark:hover:text-white" data-modal-hide="popup-modal">
+                                        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+                                        <span class="sr-only">Close modal</span>
+                                    </button>
+                                    <div class="p-6 text-center">
+                                        <svg aria-hidden="true" class="mx-auto mb-4 text-gray-400 w-14 h-14 dark:text-gray-200" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                                        <h3 class="mb-5 text-lg font-normal text-gray-500 dark:text-gray-400">Apakah anda sudah yakin dengan pesanan anda ?</h3>
+                                        <button class="text-white bg-green-600 hover:bg-green-400 focus:ring-4 focus:outline-none focus:ring-green-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                                        type="submit">
+                                            <i class="fa-solid fa-plus"></i>
+                                            &nbsp;Iya, Pesan
+                                        </button>
+                                        <button data-modal-hide="popup-modal" type="button" class="text-gray-500 bg-white hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-200 rounded-lg border border-gray-200 text-sm font-medium px-5 py-2.5 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">Tidak, Batal</button>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </form> 
                     
@@ -122,15 +151,13 @@
             <div class="grid grid-cols-2" id="menu-list">
                 @foreach ($kategori as $kategori2)
                     @foreach($kategori2->menu as $menu)
-                    <button type="button" onclick="addMenu('{{ $menu->nama }}','{{ $menu->id }}','{{ $menu->harga }}')" class="hover:bg-white hover:bg-opacity-20 rounded-lg" data-kategori-id="{{ $menu->kategori_id }}" >
-                        
-
-                        <div href="#" class="flex justify-center rounded-md m-4  px-2 py-5 bg-white border border-gray-300 shadow-md shadow-gray-300  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300" >
-                            <img class="object-cover w-full rounded-t-lg h-96 md:h-48 md:w-48 md:rounded-none md:rounded-l-lg" src="{{ asset('foto_menu/'.$menu->gambar) }}" alt="" />
+                    <button type="button" onclick="addMenu('{{ $menu->nama }}','{{ $menu->id }}','{{ $menu->harga }}')" class="hover:bg-white hover:bg-opacity-20 rounded-lg" data-kategori-id="{{ $menu->kategori_id }}">
+                        <div href="#" class="grid grid-cols-2 rounded-md m-4  px-2 py-5 bg-white border border-gray-300 shadow-md shadow-gray-300  dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 focus:ring-4 focus:outline-none focus:ring-gray-300" >
+                            <img class="object-cover w-44 rounded-t-lg h-44 md:rounded-none md:rounded-l-lg" src="{{ asset('foto_menu/'.$menu->gambar) }}" alt="" />
                             <div class="bg-white p-5 ">
                                 <h5 class="bg-white mb-3 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-left">{{ $menu->nama }}</h5>
                                 <h6 class="bg-white text-xl font-bold tracking-tight text-gray-900 dark:text-white text-left">Rp{{ number_format($menu->harga, 2,",",".") }}</h6>
-                                {{-- <button type="button" onclick="addMenu('{{ $menu->nama }}','{{ $menu->id }}','{{ $menu->harga }}')" class="inline-flex items-center px-6 py-4 text-sm font-medium text-center uppercase text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pesan</button> --}}
+                                {{-- <button type="button" onclick="addMenu('{{ $menu->nama }}','{{ $menu->id }}','{{ $menu->harga }}')" class="inline-flex items-center px-6 py-4 text-sm font-medium text-center  text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Pesan</button> --}}
                             </div>
                         </div>
                     </button>
@@ -204,7 +231,7 @@
             divJustify.className = "flex justify-center";
 
             removeButton.type = "button";
-            removeButton.className = "items-center py-2 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white uppercase tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 fa-solid fa-minus";
+            removeButton.className = "items-center py-2 px-4 bg-gray-500 border border-transparent rounded-md font-semibold text-sm text-white  tracking-widest hover:bg-gray-400 active:bg-gray-600 focus:outline-none  focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 fa-solid fa-minus";
             
 
 
@@ -257,16 +284,16 @@
         var kategoriId = document.getElementById('kategori').value;
         var menuList = document.getElementById('menu-list').children;
 
-        for (var i = 0; i < menuList.length; i++) {
-            if (kategoriId == 0) {
-                menuList[i].style.display = 'grid';
-            } else if (menuList[i].getAttribute('data-kategori-id') == kategoriId) {
-                menuList[i].style.display = 'grid';
-            } else {
-                menuList[i].style.display = 'none';
+            for (var i = 0; i < menuList.length; i++) {
+                if (kategoriId == 0) {
+                    menuList[i].style.display = 'grid';
+                } else if (menuList[i].getAttribute('data-kategori-id') == kategoriId) {
+                    menuList[i].style.display = 'grid';
+                } else {
+                    menuList[i].style.display = 'none';
+                }
             }
         }
-    }
 
     </script>
 </body>

@@ -13,21 +13,32 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+        <style>
+            .background{
+                background-attachment: fixed;
+                background-size: cover;
+                background-image: url({{ asset('image/WallpaperUi.jpg') }});
+            }
+        </style>
     </head>
     <body class="">   
-        <section class="relative bg-center bg-no-repeat min-h-screen">
-            <img src="{{ asset('image/WallpaperUi.jpg') }}" class="w-full h-screen"/>
-            <div class="absolute inset-y-16 left-0 px-8 mx-auto max-w-screen-lg lg:py-56 lg:px-48">
-                <h1 class="mb-4 text-5xl font-extrabold tracking-tight leading-none text-black md:text-6xl ">Selamat Datang di</h1>
-                <h1 class="mb-4 text-5xl font-extrabold tracking-tight leading-none text-black md:text-6xl ">BurgerResto</h1><br/><br/>
-                <p class="mb-8 text-xl font-normal text-black">Nikmati sensasi kenikmatan burger yang luar biasa di restoran cepat saji kami! Dengan berbagai macam pilihan burger yang lezat dan bergizi, kami siap memuaskan selera Anda dengan menu utama yang tak terlupakan.</p>
-                <div class="flex flex-col space-y-4 sm:flex-row sm:justify-end sm:space-y-0 sm:space-x-4">
-                    <!-- Modal toggle -->
-                    <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="inline-flex justify-start items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-pink1 hover:bg-pink2 focus:ring-4 focus:ring-orange-300 " type="button">
-                        Pesan Sekarang
-                    </button>
+        <section class="background bg-center bg-no-repeat min-h-screen" >
+            {{-- <img src="{{ asset('image/WallpaperUi.jpg') }}" class="w-full h-screen"/> --}}
+            <div class=" w-3/5  flex items-center min-h-screen px-40 ">
+                <div>
+
+                    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-black  ">Welcome to</h1>
+                    <h1 class="mb-4 text-4xl font-extrabold tracking-tight leading-none text-black  ">BurgerResto</h1><br/><br/>
+                    <p class="mb-8 text-sm  font-normal text-black">Nikmati sensasi kenikmatan burger yang luar biasa di restoran cepat saji kami! Dengan berbagai macam pilihan burger yang lezat dan bergizi, kami siap memuaskan selera Anda dengan menu utama yang tak terlupakan.</p>
+                    <div class="flex flex-col space-y-4 sm:flex-row sm:justify-end sm:space-y-0 sm:space-x-4">
+                        <!-- Modal toggle -->
+                        <button data-modal-target="defaultModal" data-modal-toggle="defaultModal" class="inline-flex justify-start items-center py-3 px-5 text-base font-medium text-center text-white rounded-lg bg-pink1 hover:bg-pink2 focus:ring-4 focus:ring-orange-300 " type="button">
+                            Pesan Sekarang
+                        </button>
+                    </div>
                 </div>
             </div>
+            
         </section>
 
         
